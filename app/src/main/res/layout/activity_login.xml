@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/phone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="76dp"
+        app:srcCompat="@drawable/applogo" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="394dp"
+        android:layout_height="73dp"
+        android:layout_above="@+id/pass"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/input_design"
+        android:hint="Phone Number"
+        android:inputType="text"
+        android:padding="20dp"
+        android:textColor="@color/purple"
+        android:textColorHint="@color/purple"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="390dp"
+        android:layout_height="69dp"
+        android:layout_above="@+id/lee"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/input_design"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="20dp"
+        android:textColor="@color/purple"
+        android:textColorHint="@color/purple"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/lee"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_above="@+id/button3"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="17dp">
+
+
+        <TextView
+            android:id="@+id/forget"
+            android:layout_width="190dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="Forget Password"
+            android:textColor="@color/purple"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/cbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="rembmer me"
+            android:textSize="16sp"
+            android:textStyle="bold">
+
+        </com.rey.material.widget.CheckBox>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button3"
+        style="@style/buttonstlye"
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/notadmin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="Login"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/notadmin"
+        android:layout_width="192dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="15dp"
+        android:text="I am not  Admin"
+        android:textColor="@color/purple"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/admin"
+        android:layout_width="192dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="201dp"
+        android:layout_marginBottom="17dp"
+        android:text="I am Admin"
+        android:textColor="@color/purple"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
