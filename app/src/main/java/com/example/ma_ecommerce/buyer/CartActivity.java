@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
+import com.example.ma_ecommerce.model.Orders;
 import com.example.ma_ecommerce.model.Products;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 import com.example.ma_ecommerce.seller.SellerHomeActivity;
@@ -26,6 +27,8 @@ import com.rey.material.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import io.paperdb.Paper;
 
@@ -60,6 +63,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void checkOrderReference() {
+        ArrayList<Orders> orders=new ArrayList<>();
         String sid = Paper.book().read(Prevalid.id);
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/getPoductsOfSeller.php?sid=" + sid;
@@ -80,7 +84,7 @@ public class CartActivity extends AppCompatActivity {
                             String productDate = row.getString("productDate");
                             String productDescription = row.getString("productDescription");
 
-                            products.add(new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState));
+                            orders.add(new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState));
                             Log.e("dp", new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState).toString());
                         } catch (Exception ex) {
                             Toast.makeText(SellerHomeActivity.this, "error", Toast.LENGTH_SHORT).show();
