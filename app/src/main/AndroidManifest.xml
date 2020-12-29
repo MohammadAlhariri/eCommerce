@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MA_eCommerce.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".buyer.CartActivity"></activity>
+        <activity android:name=".Admin.AdminMaintainProduct"></activity>
+        <activity android:name=".Admin.CheckNewProducts" />
+        <activity android:name=".Admin.AdminNewOrdersActivity" />
+        <activity android:name=".Admin.AdminHomeActivity" />
+        <activity android:name=".buyer.CartActivity" />
         <activity android:name=".buyer.SearchProductsActivity" />
         <activity android:name=".buyer.ProductDetailsActivity" />
         <activity android:name=".seller.SellerAddNewProduct" />

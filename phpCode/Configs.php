@@ -7,8 +7,7 @@
     'database' => 'DATABASE'
     );
 
-
-    $CONNECTION = MYSQL_CONNECTION($Configs[hostname], $configs[username], $configs[password], $configs[database])
+    $CONNECTION = MYSQL_CONNECTION($Configs['hostname'], $configs['username'], $configs['password'], $configs['database'])
     or die("Not Connected")
 
 ?>
