@@ -1,4 +1,5 @@
 <?php
+// Hello Form Zaid Lap...
 $name = addslashes(strip_tags($_POST['name']));
 $des = addslashes(strip_tags($_POST['description']));
 $price = addslashes(strip_tags($_POST['price']));
