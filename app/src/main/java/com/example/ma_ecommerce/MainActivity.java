@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
                         Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }

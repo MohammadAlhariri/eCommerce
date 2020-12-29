@@ -160,7 +160,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
                         Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
