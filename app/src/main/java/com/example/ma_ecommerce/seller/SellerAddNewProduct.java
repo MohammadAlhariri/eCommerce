@@ -134,7 +134,7 @@ public class SellerAddNewProduct extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-//---------------------------------------------
+        //---------------------------------------------
         final RequestQueue queue = Volley.newRequestQueue(this);
 
         String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/addproduct.php";
@@ -196,7 +196,7 @@ public class SellerAddNewProduct extends AppCompatActivity {
             try {
                 //getting image from gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                Log.e("image",filePath.getPath());
+                //Log.e("image",filePath.getPath());
                 //Setting image to ImageView
                 p_photo.setImageBitmap(bitmap);
             } catch (Exception e) {

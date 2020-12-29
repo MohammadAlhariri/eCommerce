@@ -77,8 +77,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 intent.putExtra("desc", pdecs);
                 intent.putExtra("pimage", pimage);
                 intent.putExtra("price", price);
-
-
                 activity.startActivity(intent);
 
             }

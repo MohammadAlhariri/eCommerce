@@ -84,10 +84,10 @@ public class CartActivity extends AppCompatActivity {
                             String productDate = row.getString("productDate");
                             String productDescription = row.getString("productDescription");
 
-                            orders.add(new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState));
+                            orders.add(new orders(productDescription, name, price, productImage, id, productDate, productCategory, productState));
                             Log.e("dp", new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState).toString());
                         } catch (Exception ex) {
-                            Toast.makeText(SellerHomeActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
                             //Log.e("dp", ex.toString());
                         }
 
