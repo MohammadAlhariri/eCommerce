@@ -74,7 +74,7 @@ public class SellerLoginActivity extends AppCompatActivity {
             progressDialog.setMessage("Please Wait ");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            String HTTP_SERVER_URL = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/sellerLogin.php?email=" + email + "&password=" + pass ;
+            String HTTP_SERVER_URL = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/sellerLogin.php?email=" + email + "&password=" + pass ;
             JsonArrayRequest jsArrRequest = new JsonArrayRequest(Request.Method.GET, HTTP_SERVER_URL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {

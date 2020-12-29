@@ -64,7 +64,7 @@ public class RegistertionActivity extends AppCompatActivity {
 
     private void validate(String names, String phone, String password) {
         final RequestQueue queue = Volley.newRequestQueue(RegistertionActivity.this);
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/register.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/register.php";
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -137,7 +137,7 @@ public class SellerAddNewProduct extends AppCompatActivity {
         //---------------------------------------------
         final RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/addproduct.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/addproduct.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

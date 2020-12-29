@@ -110,7 +110,7 @@ public class SellerHomeActivity extends AppCompatActivity {
 
     private void fillList() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/getPoductsOfSeller.php?sid=" + sid;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getPoductsOfSeller.php?sid=" + sid;
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

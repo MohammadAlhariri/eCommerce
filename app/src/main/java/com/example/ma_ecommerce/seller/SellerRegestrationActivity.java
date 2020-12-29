@@ -84,7 +84,7 @@ public class SellerRegestrationActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
             final RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/sellerRegister.php";
+            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/sellerRegister.php";
 
 
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

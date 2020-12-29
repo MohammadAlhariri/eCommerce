@@ -1,4 +1,4 @@
-package com.example.ma_ecommerce.Admin;
+package com.example.ma_ecommerce.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;

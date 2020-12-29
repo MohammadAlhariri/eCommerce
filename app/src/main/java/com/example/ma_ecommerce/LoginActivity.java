@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        String HTTP_SERVER_URL = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/login.php?phone=" + phone + "&password=" + password + "&parent=" + parentname;
+        String HTTP_SERVER_URL = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/login.php?phone=" + phone + "&password=" + password + "&parent=" + parentname;
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (Request.Method.GET, HTTP_SERVER_URL, null, new Response.Listener<JSONArray>() {
 

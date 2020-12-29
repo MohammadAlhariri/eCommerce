@@ -1,16 +1,16 @@
 package com.example.ma_ecommerce.model;
 
 public class Orders {
-    private String address,city,date,time,phone,name,totalAmount;
+    private String address,city,date,phone,name,totalAmount;
 
     public Orders() {
     }
 
-    public Orders(String address, String city, String date, String time, String phone, String name, String totalAmount) {
+    public Orders(String address, String city, String date,  String phone, String name, String totalAmount) {
         this.address = address;
         this.city = city;
         this.date = date;
-        this.time = time;
+
         this.phone = phone;
         this.name = name;
         this.totalAmount = totalAmount;
@@ -40,13 +40,7 @@ public class Orders {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
-    }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public String getPhone() {
         return phone;

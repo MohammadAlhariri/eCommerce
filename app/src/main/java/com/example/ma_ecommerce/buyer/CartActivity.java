@@ -66,7 +66,7 @@ public class CartActivity extends AppCompatActivity {
         ArrayList<Orders> orders=new ArrayList<>();
         String sid = Paper.book().read(Prevalid.id);
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/getPoductsOfSeller.php?sid=" + sid;
+            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?sid=" + sid;
             JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {

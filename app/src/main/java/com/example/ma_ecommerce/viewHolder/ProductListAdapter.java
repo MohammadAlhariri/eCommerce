@@ -90,7 +90,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         progressDialog.show();
         final RequestQueue queue = Volley.newRequestQueue(activity);
 
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/deleteProduct.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteProduct.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

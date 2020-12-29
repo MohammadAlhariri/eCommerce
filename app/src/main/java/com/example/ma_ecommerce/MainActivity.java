@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     public void allow_access(String phone, String password,String parent) {
 
 
-        String HTTP_SERVER_URL = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/login.php?phone=" + phone + "&password=" + password+"&parent="+parent ;
+        String HTTP_SERVER_URL = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/login.php?phone=" + phone + "&password=" + password+"&parent="+parent ;
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (Request.Method.GET, HTTP_SERVER_URL, null, new Response.Listener<JSONArray>() {
 
