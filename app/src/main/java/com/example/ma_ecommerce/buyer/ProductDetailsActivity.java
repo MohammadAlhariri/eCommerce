@@ -93,7 +93,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map2 = new HashMap<>();
-                uID = Paper.book().read(Prevalid.id).toString();
+                uID = Prevalid.online.getID()+"";
                 map2.put("uid", uID);
                 map2.put("pid", getIntent().getStringExtra("pid"));
                 map2.put("quantity", numberButton.getNumber());

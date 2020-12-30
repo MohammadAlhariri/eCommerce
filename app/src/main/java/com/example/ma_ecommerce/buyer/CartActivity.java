@@ -1,7 +1,7 @@
 package com.example.ma_ecommerce.buyer;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -23,7 +24,7 @@ import com.example.ma_ecommerce.model.Products;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.example.ma_ecommerce.viewHolder.BankListAdapter;
-import com.rey.material.widget.TextView;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,9 +35,9 @@ import io.paperdb.Paper;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private Button nextProcessButton;
     private RecyclerView.LayoutManager layoutManager;
     private TextView totalAmount ,msg1;
+    private  Button nextProcessButton;
     private int totalOver=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView=(RecyclerView)findViewById(R.id.cart_list);
         layoutManager=new LinearLayoutManager(this);
-        nextProcessButton=(Button)findViewById(R.id.next_process_button) ;
+         nextProcessButton = (Button) findViewById(R.id.next_process_button);
         totalAmount=(TextView)findViewById(R.id.total);
         msg1=(TextView)findViewById(R.id.msg1);
         nextProcessButton.setOnClickListener(new View.OnClickListener() {
@@ -64,38 +65,41 @@ public class CartActivity extends AppCompatActivity {
 
     private void checkOrderReference() {
         ArrayList<Orders> orders=new ArrayList<>();
-        String sid = Paper.book().read(Prevalid.id);
+        String sid = Paper.book().read(Prevalid.online.getID()+"");
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?sid=" + sid;
             JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-
+                    String orderState="Not Shipped";
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject row = response.getJSONObject(i);
-                            int id = row.getInt("productID");
-                            String name = row.getString("productName");
-                            int sellerID = row.getInt("sellerID");
-                            double price = row.getDouble("productPrice");
-                            String productCategory = row.getString("productCategory");
-                            String productImage = row.getString("productImage");
-                            String productState = row.getString("productState");
-                            String productDate = row.getString("productDate");
-                            String productDescription = row.getString("productDescription");
-
-                            orders.add(new orders(productDescription, name, price, productImage, id, productDate, productCategory, productState));
-                            Log.e("dp", new Products(productDescription, name, price, productImage, id, productDate, productCategory, productState).toString());
+                            int orderId = row.getInt("orderID");
+                            int userID = row.getInt("userID");
+                             orderState = row.getString("orderState");
                         } catch (Exception ex) {
                             Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
-                            //Log.e("dp", ex.toString());
+
                         }
 
                     }
-                    BankListAdapter adapter=new BankListAdapter(products,SellerHomeActivity.this);
+                    String userName=Paper.book().read(Prevalid.online.getName());
+                    if(orderState.equals("shipped")){
+                        totalAmount.setText("Dear "+userName+"\nyour order was shipped successfully");
+                        recyclerView.setVisibility(View.GONE);
+                        msg1.setVisibility(View.VISIBLE);
+                        nextProcessButton.setVisibility(View.INVISIBLE);
+                        Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(orderState.equals("not shipped")) {
+                        totalAmount.setText("Dear "+userName+"\n your order  Not shipped Yet");
+                        recyclerView.setVisibility(View.GONE);
+                        msg1.setVisibility(View.VISIBLE);
+                        nextProcessButton.setVisibility(View.INVISIBLE);
+                        Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
 
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override

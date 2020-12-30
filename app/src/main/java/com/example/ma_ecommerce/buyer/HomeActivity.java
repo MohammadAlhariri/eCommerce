@@ -2,6 +2,7 @@ package com.example.ma_ecommerce.buyer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -54,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView.LayoutManager layoutManager;
     private String type = "";
     private ArrayList<Products> products;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +79,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 if (!type.equals("Admins")) {
-                    //Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
                 }
 
             }
@@ -98,10 +100,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.profile_image);
-
-        userNameTextView.setText(Prevalid.online.getName());
-       Picasso.get().load(Prevalid.online.getImage()).placeholder(R.drawable.profile).into(profileImageView);
-
+       // if (!TextUtils.isEmpty(Paper.book().read(Prevalid.online.getName()))) {
+            userNameTextView.setText(Prevalid.online.getName());
+           Picasso.get().load(Prevalid.online.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        Log.e("user",Prevalid.online.toString());
+       // }
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -158,8 +161,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        adapter.startListening();
 
 
-
-
     }
 
     private void fillListWithProducts() {
@@ -191,7 +192,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                 }
-                ProductListAdapter adapter=new ProductListAdapter(products,HomeActivity.this);
+                ProductListAdapter adapter = new ProductListAdapter(products, HomeActivity.this);
 
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
@@ -247,8 +248,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_cart) {
             if (!type.equals("Admins")) {
-                //Intent intent = new Intent(HomeActivity.this, CartActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(intent);
             }
         } else if (id == R.id.nav_search) {
             if (!type.equals("Admins")) {

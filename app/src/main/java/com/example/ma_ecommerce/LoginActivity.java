@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -128,30 +129,32 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (parentname.equals("Users")) {
                             Toast.makeText(LoginActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            try {
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
 
-                                JSONObject row = response.getJSONObject(0);
-                                int id = row.getInt("userID");
-                                Paper.book().write(Prevalid.id, id);
-                                String name = row.getString("userName");
-                                int userphone = row.getInt("userPhone");
-                                String email = row.getString("userEmail");
-                                String address = row.getString("userAddress");
-                                String image = row.getString("userImage");
-                                String answer1 = row.getString("userAnswer1");
-                                String answer2 = row.getString("userAnswer2");
-                                String userpass = row.getString("userPassword");
+                                    JSONObject row = response.getJSONObject(0);
+                                    int id = row.getInt("userID");
+                                    //Paper.book().write(Prevalid.id, id);
+                                    String name = row.getString("userName");
+                                    int userphone = row.getInt("userPhone");
+                                    String email = row.getString("userEmail");
+                                    String address = row.getString("userAddress");
+                                    String image = row.getString("userImage");
+                                    //String answer1 = row.getString("userAnswer1");
+                                    //String answer2 = row.getString("userAnswer2");
+                                    String userpass = row.getString("userPassword");
 
-                                Prevalid.online = new Users(name, userpass, address, image, email, userphone, id);
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                // Prevalid.online = users;
-                                startActivity(intent);
-                            } catch (Exception ex) {
-                                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    Users users = new Users(name, userpass, address, image, email, userphone, id);
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    Log.e("error", new Users(name, userpass, address, image, email, userphone, id).toString());
+                                    Prevalid.online = users;
+                                    startActivity(intent);
+                                } catch (Exception ex) {
+                                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    Log.e("error", ex.toString());
+                                }
                             }
-
                         } else {
                             progressDialog.dismiss();
                         }
@@ -160,7 +163,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+
+                        Log.e("error", error.toString());
                         progressDialog.dismiss();
                     }
 
