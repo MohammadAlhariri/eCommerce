@@ -9,6 +9,14 @@ public class Products {
         this.category = category;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getName() {
         return name;
     }
@@ -19,11 +27,20 @@ public class Products {
 
     private String category, description,name,image,date, productState;
 private double price;
-private int pid;
+private int pid,quantity;
     public Products() {
     }
 
-    public Products(String description, String name, double price, String image, int pid, String date, String category,String productState) {
+    public Products(String name,  double price, int pid, int quantity,String description,String image) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.pid = pid;
+        this.quantity = quantity;
+        this.image = image;
+    }
+
+    public Products(String description, String name, double price, String image, int pid, String date, String category, String productState) {
         this.description = description;
         this.name = name;
         this.price = price;

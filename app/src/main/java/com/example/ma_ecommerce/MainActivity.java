@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         if (parent.equals("Users")||parent.equals("Admins")) {
                             Toast.makeText(MainActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            Users users = null;
+
                             try {
 
                                 JSONObject row = response.getJSONObject(0);
@@ -154,15 +154,16 @@ public class MainActivity extends AppCompatActivity {
                                 String answer1 = row.getString("userAnswer1");
                                 String answer2 = row.getString("userAnswer2");
                                 String userpass = row.getString("userPassword");
-
+                                Users users ;
                                 users = new Users(name, userpass, address, image, email, userphone, id);
                                 Log.e("users",users.toString());
+                                Prevalid.online = users;
                             } catch (Exception ex) {
                                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                             }
                             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            Prevalid.online = users;
+
                             startActivity(intent);
                         } else if (parent.equals("Sellers")) {
                             Toast.makeText(MainActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
@@ -186,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Intent intent = new Intent(MainActivity.this, SellerHomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
                             // Prevalid.online = users;
                             startActivity(intent);
                         } else {

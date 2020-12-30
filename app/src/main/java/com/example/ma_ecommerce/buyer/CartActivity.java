@@ -24,6 +24,8 @@ import com.example.ma_ecommerce.model.Products;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.example.ma_ecommerce.viewHolder.BankListAdapter;
+import com.example.ma_ecommerce.viewHolder.CartItemAdapter;
+import com.example.ma_ecommerce.viewHolder.ProductListAdapter;
 
 
 import org.json.JSONArray;
@@ -36,26 +38,29 @@ import io.paperdb.Paper;
 public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private TextView totalAmount ,msg1;
-    private  Button nextProcessButton;
-    private int totalOver=0;
+    private TextView totalAmount, msg1;
+    private Button nextProcessButton;
+    private int totalOver = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         checkOrderReference();
 
-        recyclerView=(RecyclerView)findViewById(R.id.cart_list);
-        layoutManager=new LinearLayoutManager(this);
-         nextProcessButton = (Button) findViewById(R.id.next_process_button);
-        totalAmount=(TextView)findViewById(R.id.total);
-        msg1=(TextView)findViewById(R.id.msg1);
+        recyclerView = (RecyclerView) findViewById(R.id.cart_list);
+        layoutManager = new LinearLayoutManager(this);
+        nextProcessButton = (Button) findViewById(R.id.next_process_button);
+        totalAmount = (TextView) findViewById(R.id.total);
+        msg1 = (TextView) findViewById(R.id.msg1);
+        recyclerView.setHasFixedSize(true);
+       recyclerView.setLayoutManager(layoutManager);
         nextProcessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Intent intent=new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
-               // intent.putExtra("total",totalOver+"");
+                // intent.putExtra("total",totalOver+"");
                 //startActivity(intent);
                 finish();
             }
@@ -64,58 +69,97 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void checkOrderReference() {
-        ArrayList<Orders> orders=new ArrayList<>();
-        String sid = Paper.book().read(Prevalid.online.getID()+"");
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?sid=" + sid;
-            JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    String orderState="Not Shipped";
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject row = response.getJSONObject(i);
-                            int orderId = row.getInt("orderID");
-                            int userID = row.getInt("userID");
-                             orderState = row.getString("orderState");
-                        } catch (Exception ex) {
-                            Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
-
-                        }
+        ArrayList<Orders> orders = new ArrayList<>();
+        String sid = Paper.book().read(Prevalid.online.getID() + "");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?sid=" + sid;
+        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                String orderState = "Not Shipped";
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject row = response.getJSONObject(i);
+                        int orderId = row.getInt("orderID");
+                        int userID = row.getInt("userID");
+                        orderState = row.getString("orderState");
+                    } catch (Exception ex) {
+                        Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
 
                     }
-                    String userName=Paper.book().read(Prevalid.online.getName());
-                    if(orderState.equals("shipped")){
-                        totalAmount.setText("Dear "+userName+"\nyour order was shipped successfully");
-                        recyclerView.setVisibility(View.GONE);
-                        msg1.setVisibility(View.VISIBLE);
-                        nextProcessButton.setVisibility(View.INVISIBLE);
-                        Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(orderState.equals("not shipped")) {
-                        totalAmount.setText("Dear "+userName+"\n your order  Not shipped Yet");
-                        recyclerView.setVisibility(View.GONE);
-                        msg1.setVisibility(View.VISIBLE);
-                        nextProcessButton.setVisibility(View.INVISIBLE);
-                        Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
 
                 }
-            });
+                //String userName =Prevalid.online.getName();
+                if (orderState.equals("Shipped")) {
+                   // totalAmount.setText("Dear " + userName + "\nyour order was shipped successfully");
+                    //recyclerView.setVisibility(View.GONE);
+                    //msg1.setVisibility(View.VISIBLE);
+                    //nextProcessButton.setVisibility(View.INVISIBLE);
+                    Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
+                } else if (orderState.equals("Not Shipped")) {
+                    //totalAmount.setText("Dear " + userName + "\n your order  Not shipped Yet");
+                    //recyclerView.setVisibility(View.GONE);
+                    //msg1.setVisibility(View.VISIBLE);
+                    //nextProcessButton.setVisibility(View.INVISIBLE);
+                    Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
 
-            queue.add(request);
-        }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+            }
+        });
+
+        queue.add(request);
+    }
 
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        ArrayList<Products> products = new ArrayList<>();
+        String uid =Prevalid.online.getID()+ "";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrdersProducts.php?uid=" + uid;
+        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject row = response.getJSONObject(i);
+                        int productID = row.getInt("productID");
+                        int quantity = row.getInt("quantity");
+                        String poductName = row.getString("productName");
+                        double price = row.getDouble("productPrice");
+                        String 	productDescription = row.getString("productDescription");
+                        String 	productImage = row.getString("productImage");
+
+                        products.add(new Products(poductName, price, productID, quantity,productDescription,productImage));
+                    } catch (Exception ex) {
+                        Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+                CartItemAdapter adapter = new CartItemAdapter(products, CartActivity.this);
+
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+            }
+        });
+
+        queue.add(request);
     }
 }

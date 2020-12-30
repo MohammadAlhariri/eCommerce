@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -71,7 +72,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private void addingToCartList() {
         final RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/addToCart.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/addToCart.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -82,6 +83,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 Intent intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Log.e("dp",response);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {

@@ -34,3 +34,5 @@ echo "Record Added";
    
 mysqli_close($con);
 ?> 					
+<!-- SELECT `product`.`productID`,`product`.`productName`,`product`.`productPrice`,`order`.`orderTotal`,`order_content`.`quantity`,`order_content`.`price` FROM `product`,`order`,`order_content` WHERE `product`.`productID`=`order_content`.`productID`AND `order`.`orderID`=order_content.orderID AND `order`.`userID`=3 -->
+<!-- SELECT `product`.`productID`,`product`.`productName`,`product`.`productPrice`,`order`.`userID`,`order`.`orderTotal`,`order_content`.`quantity`,`order_content`.`price` FROM `product`,`order`,`order_content` WHERE `product`.`productID`=`order_content`.`productID`AND `order`.`orderID`=order_content.orderID -->

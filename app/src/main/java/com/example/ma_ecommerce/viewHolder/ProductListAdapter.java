@@ -122,7 +122,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         };
 
         queue.add(request);
-        activity.recreate();
     }
 
 
