@@ -41,7 +41,8 @@ public class CartActivity extends AppCompatActivity {
     private TextView totalAmount, msg1;
     private Button nextProcessButton;
     private int totalOver = 0;
-
+    String orderState = "Not Shipped";
+    String userApproved="yes";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.cart_list);
         layoutManager = new LinearLayoutManager(this);
-        nextProcessButton = (Button) findViewById(R.id.next_process_button);
+        nextProcessButton = findViewById(R.id.next_process_button);
         totalAmount = (TextView) findViewById(R.id.total);
         msg1 = (TextView) findViewById(R.id.msg1);
         recyclerView.setHasFixedSize(true);
@@ -59,9 +60,9 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Intent intent=new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
-                // intent.putExtra("total",totalOver+"");
-                //startActivity(intent);
+                Intent intent=new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
+                 intent.putExtra("total",totalOver+"");
+                startActivity(intent);
                 finish();
             }
         });
@@ -69,41 +70,44 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void checkOrderReference() {
+
         ArrayList<Orders> orders = new ArrayList<>();
         String sid = Paper.book().read(Prevalid.online.getID() + "");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?sid=" + sid;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?uid=" + sid;
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                String orderState = "Not Shipped";
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject row = response.getJSONObject(i);
                         int orderId = row.getInt("orderID");
                         int userID = row.getInt("userID");
                         orderState = row.getString("orderState");
+                         userApproved=row.getString("adminApproved");
                     } catch (Exception ex) {
                         Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
 
                     }
 
                 }
-                //String userName =Prevalid.online.getName();
-                if (orderState.equals("Shipped")) {
-                   // totalAmount.setText("Dear " + userName + "\nyour order was shipped successfully");
+                if (orderState.equals("Not Shipped")) {
+                    // totalAmount.setText("Dear " + userName + "\nyour order was shipped successfully");
                     //recyclerView.setVisibility(View.GONE);
                     //msg1.setVisibility(View.VISIBLE);
-                    //nextProcessButton.setVisibility(View.INVISIBLE);
+                    nextProcessButton.setClickable(false);
                     Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
-                } else if (orderState.equals("Not Shipped")) {
+                } else {
                     //totalAmount.setText("Dear " + userName + "\n your order  Not shipped Yet");
                     //recyclerView.setVisibility(View.GONE);
                     //msg1.setVisibility(View.VISIBLE);
-                    //nextProcessButton.setVisibility(View.INVISIBLE);
+                    nextProcessButton.setClickable(true);
                     Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
 
                 }
+                //String userName =Prevalid.online.getName();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -114,6 +118,7 @@ public class CartActivity extends AppCompatActivity {
         });
 
         queue.add(request);
+
     }
 
 

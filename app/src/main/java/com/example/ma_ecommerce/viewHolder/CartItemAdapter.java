@@ -77,12 +77,18 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                 builder.setItems(sequence, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
+                        if (which != 0) {
                             deleteProductfromCart(pid);
                         } else {
+                            deleteProductfromCart(pid);
+                            dialog.dismiss();
                             Intent intent = new Intent(activity, ProductDetailsActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            // Prevalid.online = users;
+
+                            intent.putExtra("pid", pid+"");
+                            intent.putExtra("name", products.get(position).getName());
+                            intent.putExtra("desc", products.get(position).getDescription());
+                            intent.putExtra("pimage", products.get(position).getImage());
+                            intent.putExtra("price", products.get(position).getPrice()+"");
                             activity.startActivity(intent);
                         }
                     }
@@ -112,7 +118,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             public void onResponse(String response) {
 
                 Log.e("dp", response);
-                Toast.makeText(activity, "Product deleted from cart successfully ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(activity, "Product deleted from cart successfully ", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
 
 
             }
@@ -130,7 +137,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                 HashMap<String, String> map2 = new HashMap<>();
 
                 map2.put("pid", pid+"");
-                ;
+
                 return map2;
             }
         };

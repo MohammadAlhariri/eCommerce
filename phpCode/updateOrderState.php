@@ -1,36 +1,19 @@
 <?php
     $name = addslashes(strip_tags($_POST['name']));
-    $des = addslashes(strip_tags($_POST['description']));
-    $price = addslashes(strip_tags($_POST['price']));
-    $category = addslashes(strip_tags($_POST['category']));
-    $sid = addslashes(strip_tags($_POST['sellerID']));
-    $image = addslashes(strip_tags($_POST['image']));
-
-    $image_no=date("Y&m&d&h&i&s");//or Anything You Need
-    $image = $_POST['image'];
-    $path = "uploads/".$image_no.".jpg";
-
-    $status = file_put_contents($path,base64_decode($image));
-    if($status){
-     echo "Successfully Uploaded";
-    }else{
-     echo "Upload failed";
-    }
-
-    $path1="https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/".$path;
-    $state="Not Validate";
-    $date=getdate();
+    $phone = addslashes(strip_tags($_POST['phone']));
+    $city = addslashes(strip_tags($_POST['city']));
+    $address = addslashes(strip_tags($_POST['address']));
+    $uid=addslashes(strip_tags($_POST['uid']));
 
 
 
 include "connection.php";
 
-$sql = "INSERT INTO `product`(`productName`, `productDescription`, `productPrice`, `productImage`, `productCategory`, `productState`, `productDate`, `sellerID`) 
-VALUES ('$name','$des',$price,'$path1','$category','$state',NOW(),$sid)";
+$sql = "UPDATE `order` SET `orderTotal` = '440', `customerName` = '$name', `customerAddress` = '$address', `customerPhone` = '$phone', `customerCity` = '$city' WHERE `order`.`orderID` = 28;";
 mysqli_query($con,$sql);
 echo mysqli_error($con);
 
-echo "Record Added";
+echo "your order will be send soon";
    
 mysqli_close($con);
 ?> 					
