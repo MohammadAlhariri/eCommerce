@@ -121,42 +121,45 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+
+                                JSONObject row = response.getJSONObject(0);
+                                int id = row.getInt("userID");
+                                //Paper.book().write(Prevalid.id, id);
+                                String name = row.getString("userName");
+                                int userphone = row.getInt("userPhone");
+                                String email = row.getString("userEmail");
+                                String address = row.getString("userAddress");
+                                String image = row.getString("userImage");
+                                String answer1 = row.getString("userAnswer1");
+                                String answer2 = row.getString("userAnswer2");
+                                String userpass = row.getString("userPassword");
+
+                                Users users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
+                                Prevalid.online = users;
+                            } catch (Exception ex) {
+                                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                Log.e("error", ex.toString());
+                            }
+                        }
+                        progressDialog.dismiss();
                         if (parentname.equals("Admins")) {
                             Toast.makeText(LoginActivity.this, "Welcome Admin,login successful ", Toast.LENGTH_SHORT).show();
 
-                            progressDialog.dismiss();
                             Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
-                            //Prevalid.online = users;
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                             startActivity(intent);
-                        } else if (parentname.equals("Users")) {
+                        }
+
+                        else if (parentname.equals("Users")) {
                             Toast.makeText(LoginActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            for (int i = 0; i < response.length(); i++) {
-                                try {
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
 
-                                    JSONObject row = response.getJSONObject(0);
-                                    int id = row.getInt("userID");
-                                    //Paper.book().write(Prevalid.id, id);
-                                    String name = row.getString("userName");
-                                    int userphone = row.getInt("userPhone");
-                                    String email = row.getString("userEmail");
-                                    String address = row.getString("userAddress");
-                                    String image = row.getString("userImage");
-                                    String answer1 = row.getString("userAnswer1");
-                                    String answer2 = row.getString("userAnswer2");
-                                    String userpass = row.getString("userPassword");
-
-                                    Users users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
-                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    Log.e("error", new Users(name, userpass, address, image, email, userphone, id).toString());
-                                    Prevalid.online = users;
-                                    startActivity(intent);
-                                } catch (Exception ex) {
-                                    Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                    Log.e("error", ex.toString());
-                                }
-                            }
                         } else {
                             progressDialog.dismiss();
                         }

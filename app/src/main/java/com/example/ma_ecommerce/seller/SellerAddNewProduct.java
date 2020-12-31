@@ -121,6 +121,10 @@ public class SellerAddNewProduct extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         //---------------------------------------------
+
+
+
+
         final RequestQueue queue = Volley.newRequestQueue(this);
 
         String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/addproduct.php";
