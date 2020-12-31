@@ -134,7 +134,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 HashMap<String, String> map2 = new HashMap<>();
 
                 map2.put("pid", pid + "");
-                ;
+
                 return map2;
             }
         };
