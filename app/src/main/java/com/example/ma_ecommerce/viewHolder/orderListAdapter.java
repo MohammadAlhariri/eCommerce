@@ -85,14 +85,7 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-                            //databaseReference.child(uID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                              //  @Override
-                              //  public void onComplete(@NonNull Task<Void> task) {
-                                  //  if(task.isSuccessful()){
                                         Toast.makeText(activity, "This Order is Removed ", Toast.LENGTH_SHORT).show();
-                                 //   }
-                              //  }
-                           // });
                         }
                         else {
                             activity.finish();
