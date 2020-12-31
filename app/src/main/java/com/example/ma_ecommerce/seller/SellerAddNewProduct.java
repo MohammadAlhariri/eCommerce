@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +28,7 @@ import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -162,33 +164,50 @@ public class SellerAddNewProduct extends AppCompatActivity {
     }
 
 
+    //    private void openGallery() {
+//
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_PICK);
+//        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+//    }
     private void openGallery() {
-
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, gallery_photo);
     }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-
-            try {
-                //getting image from gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Log.e("image",filePath.getPath());
-                //Setting image to ImageView
-                p_photo.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                Log.e("image", e.toString());
-            }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//            Uri filePath = data.getData();
+//
+//            try {
+//                //getting image from gallery
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                //Log.e("image",filePath.getPath());
+//                //Setting image to ImageView
+//                p_photo.setImageBitmap(bitmap);
+//            } catch (Exception e) {
+//                Log.e("image", e.toString());
+//            }
+//        }
+//    }
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode==gallery_photo  &&  resultCode==RESULT_OK  &&  data!=null){
+        imageuri = data.getData();
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        p_photo.setImageURI(imageuri);
     }
+}
 }
 
 

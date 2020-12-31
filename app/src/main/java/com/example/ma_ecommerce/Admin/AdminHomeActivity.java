@@ -1,4 +1,4 @@
-package com.example.ma_ecommerce.Admin;
+package com.example.ma_ecommerce.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -46,7 +46,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         checkOrdersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity.this, AdminNewOrdersActivity.class);
+                Intent intent = new Intent(AdminHomeActivity.this,AdminNewOrdersActivity.class);
                 startActivity(intent);
             }
         });

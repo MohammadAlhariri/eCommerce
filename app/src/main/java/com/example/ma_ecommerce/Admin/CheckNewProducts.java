@@ -1,4 +1,4 @@
-package com.example.ma_ecommerce.Admin;
+package com.example.ma_ecommerce.admin;
 
 import android.os.Bundle;
 

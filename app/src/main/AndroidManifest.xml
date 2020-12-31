@@ -15,15 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MA_eCommerce.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".Admin.Category"></activity>
+        <activity android:name=".admin.Category"></activity>
         <activity android:name=".buyer.ConfirmFinalOrderActivity" />
-        <activity android:name=".Admin.AdminMaintainProduct" />
-        <activity android:name=".Admin.CheckNewProducts" />
-        <activity android:name=".Admin.AdminNewOrdersActivity" />
-        <activity android:name=".Admin.AdminHomeActivity" />
+        <activity android:name=".admin.AdminMaintainProduct" />
+        <activity android:name=".admin.CheckNewProducts" />
+        <activity android:name=".admin.AdminNewOrdersActivity" />
+        <activity android:name=".admin.AdminHomeActivity" />
         <activity android:name=".buyer.CartActivity" />
         <activity android:name=".buyer.SearchProductsActivity" />
         <activity android:name=".buyer.ProductDetailsActivity" />
+        <activity android:name=".buyer.SettingActivity" />
+
         <activity android:name=".seller.SellerAddNewProduct" />
         <activity android:name=".seller.SellerCategory" />
         <activity android:name=".seller.SellerHomeActivity" />

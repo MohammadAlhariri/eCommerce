@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ma_ecommerce.admin.AdminHomeActivity;
 import com.example.ma_ecommerce.buyer.HomeActivity;
 import com.example.ma_ecommerce.model.Users;
 import com.example.ma_ecommerce.prevalid.Prevalid;
@@ -123,9 +124,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Welcome Admin,login successful ", Toast.LENGTH_SHORT).show();
 
                             progressDialog.dismiss();
-                            //Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                             //Prevalid.online = users;
-                            //startActivity(intent);
+                            startActivity(intent);
                         } else if (parentname.equals("Users")) {
                             Toast.makeText(LoginActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
