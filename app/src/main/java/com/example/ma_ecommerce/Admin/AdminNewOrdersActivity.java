@@ -1,4 +1,4 @@
-package com.example.ma_ecommerce.admin;
+package com.example.ma_ecommerce.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

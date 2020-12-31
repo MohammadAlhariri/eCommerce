@@ -1,7 +1,5 @@
 package com.example.ma_ecommerce.seller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,21 +33,17 @@ import java.util.Map;
 import io.paperdb.Paper;
 
 public class SellerAddNewProduct extends AppCompatActivity {
+    private static final int gallery_photo = 1;
+    int PICK_IMAGE_REQUEST = 111;
+    Bitmap bitmap;
     private String categoryName, description, price, name,
             saveCurrentDate, saveCurrentTime, randomKey, downloadImage;
     private Button add_new_product;
     private ImageView p_photo;
-    private static final int gallery_photo = 1;
     private Uri imageuri;
     private EditText p_name, p_description, p_price;
-
     private ProgressDialog progressDialog;
-    //----------------------
-
-    int PICK_IMAGE_REQUEST = 111;
     //String URL = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/upload/";
-    Bitmap bitmap;
-    //-----------------
     private String sellerName, sellerAddress, sellerEmail, sellerID, sellerPhone;
 
     @Override
@@ -116,6 +112,7 @@ public class SellerAddNewProduct extends AppCompatActivity {
 //
 //            }
 //        });
+
         //---------------------------
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -134,8 +131,8 @@ public class SellerAddNewProduct extends AppCompatActivity {
                 Toast.makeText(SellerAddNewProduct.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 Intent intent = new Intent(SellerAddNewProduct.this, SellerHomeActivity.class);
-                Log.e("dp",response);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Log.e("dp", response);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
@@ -188,7 +185,7 @@ public class SellerAddNewProduct extends AppCompatActivity {
                 //Setting image to ImageView
                 p_photo.setImageBitmap(bitmap);
             } catch (Exception e) {
-                Log.e("image",e.toString());
+                Log.e("image", e.toString());
             }
         }
     }

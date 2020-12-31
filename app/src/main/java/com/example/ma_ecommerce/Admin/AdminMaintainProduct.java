@@ -1,44 +1,33 @@
-package com.example.ma_ecommerce.admin;
+package com.example.ma_ecommerce.Admin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ma_ecommerce.R;
-import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
 
 public class AdminMaintainProduct extends AppCompatActivity {
-    private AppCompatButton applyChanges, deleteProduct;
+    private Button applyChanges, deleteProduct;
     private EditText name, price, description;
     private ImageView imageView;
     private String productId = "";
-//    private DatabaseReference productRefrence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_maintain_product);
-        name = findViewById(R.id.maintain_product_mame);
-        price = findViewById(R.id.maintain_product_price);
-        description = findViewById(R.id.maintain_product_description);
-        imageView = findViewById(R.id.maintain_product_image);
-        applyChanges = findViewById(R.id.maintain_product_button);
-        deleteProduct = findViewById(R.id.delete_product_button);
+        name = (EditText) findViewById(R.id.maintain_product_mame);
+        price = (EditText) findViewById(R.id.maintain_product_price);
+        description = (EditText) findViewById(R.id.maintain_product_description);
+        imageView = (ImageView) findViewById(R.id.maintain_product_image);
+        applyChanges = (Button) findViewById(R.id.maintain_product_button);
+        deleteProduct = (Button) findViewById(R.id.delete_product_button);
         productId = getIntent().getStringExtra("pid");
-/*
+    /*
         productRefrence = FirebaseDatabase.getInstance().getReference().child("Product").child(productId);
         displaySpecificProduct();
 
@@ -142,5 +131,7 @@ public class AdminMaintainProduct extends AppCompatActivity {
             }
         });
     }*/ // Using FirebaseRef
+
+
     }
 }
