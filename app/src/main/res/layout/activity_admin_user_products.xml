@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.AdminNewOrdersActivity">
+    tools:context=".admin.AdminUserProducts">
     <RelativeLayout
-        android:id="@+id/rlll"
+        android:id="@+id/r3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         >
         <com.rey.material.widget.TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Orders"
+            android:text=" Products"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:background="@color/purple"
@@ -25,9 +26,10 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/order_list"
-        android:layout_below="@id/rlll"
+        android:id="@+id/products_list"
+        android:layout_below="@id/r3"
         android:layout_margin="10dp"
 
         />
+
 </RelativeLayout>
