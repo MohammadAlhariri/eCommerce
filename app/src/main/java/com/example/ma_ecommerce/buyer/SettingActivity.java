@@ -1,10 +1,5 @@
 package com.example.ma_ecommerce.buyer;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +27,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.prevalid.Prevalid;
-import com.example.ma_ecommerce.seller.SellerAddNewProduct;
-import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -39,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.paperdb.Paper;
 
 public class SettingActivity extends AppCompatActivity {
     private CircleImageView profileImageView;
@@ -93,9 +88,10 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 checker = "clicked";
 
-//                CropImage.activity(imageUri)
-//                        .setAspectRatio(1, 1)
-//                        .start(Setting.this);
+/*                    CropImage.activity(imageUri)
+                            .setAspectRatio(1, 1)
+                            .start(Setting.this);*/
+
                 openGallery();
             }
         });

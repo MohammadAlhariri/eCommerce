@@ -1,13 +1,14 @@
 package com.example.ma_ecommerce.admin;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
-import com.example.ma_ecommerce.buyer.CartActivity;
 import com.example.ma_ecommerce.model.Orders;
 import com.rey.material.widget.TextView;
 
@@ -115,7 +115,7 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
     }
 
     private void getOrder() {
-        ArrayList<Orders>orders=new ArrayList<>();
+        ArrayList<Orders> orders = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
@@ -126,25 +126,21 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                     try {
                         JSONObject row = response.getJSONObject(i);
                         int orderId = row.getInt("orderID");
-                        String customerName=row.getString("customerName");
-                        double total=row.getDouble("orderTotal");
+                        String customerName = row.getString("customerName");
+                        double total = row.getDouble("orderTotal");
                         int userID = row.getInt("userID");
                         String orderDate = row.getString("orderDate");
 
-                        String city=row.getString("customerCity");
-                        String address=row.getString("customerAddress");
-                        int phone=row.getInt("customerPhone");
-                        orders.add(new Orders(address,city,orderDate,phone+"",customerName,total+""));
+                        String city = row.getString("customerCity");
+                        String address = row.getString("customerAddress");
+                        int phone = row.getInt("customerPhone");
+                        orders.add(new Orders(address, city, orderDate, phone + "", customerName, total + ""));
                     } catch (Exception ex) {
                         Toast.makeText(AdminNewOrdersActivity.this, "error", Toast.LENGTH_SHORT).show();
 
                     }
 
                 }
-
-
-                //String userName =Prevalid.online.getName();
-
             }
         }, new Response.ErrorListener() {
             @Override

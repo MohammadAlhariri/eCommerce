@@ -42,6 +42,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private Button addToCartButton;
     private String  uID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

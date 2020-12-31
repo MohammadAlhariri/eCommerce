@@ -152,93 +152,93 @@ public class SellerHomeActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-//    private void getProducts() {
-//
-//       adapter = new RecyclerView.Adapter<SellerItemHolder>() {
-//            @NonNull
-//            @Override
-//            public SellerItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.seller_item_view, parent, false);
-//                return new SellerItemHolder(view);
-//            }
-//
-//            @Override
-//            public void onBindViewHolder(@NonNull SellerItemHolder holder, int position) {
-////
-//                holder.sellerproductname.setText(products.get(position).getName());
-//                holder.sellerproductdescreption.setText(products.get(position).getDescription());
-//                holder.sellerproductprice.setText("Price = " + products.get(position).getPrice() + "$");
-//                holder.sellerproductstate.setText(products.get(position).getProductState());
-//
-//                //Picasso.get().load(model.getImage()).into(holder.sellerproductimage);
-//
-//
-//                holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        CharSequence options[] = new CharSequence[]{
-//                                "yes",
-//                                "No"
-//                        };
-//                        // String uID = getRef(position).getKey();
-//
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(SellerHomeActivity.this);
-//                        builder.setTitle("this product will be removed ?");
-//                        builder.setItems(options, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                if (which == 0) {
-//                                    //deleteProduct(model.getPid());
-//                                } else {
-//                                    finish();
-//                                }
-//                            }
-//                        });
-//                        builder.show();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public int getItemCount() {
-//                return 0;
-//            }
-//        };
-//
-//        recyclerView.setAdapter(adapter);
-//
-////        RequestQueue queue = Volley.newRequestQueue(this);
-////
-////        String url = "https://mclweb2020.000webhostapp.com/mob/getProducts.php";
-////        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-////            @Override
-////            public void onResponse(JSONArray response) {
-////                for (int i = 0; i < response.length(); i++) {
-////                    try {
-////                        JSONObject row = response.getJSONObject(i);
-////                        int id = row.getInt("productID");
-////                        String name = row.getString("productName");
-////                        int sellerID = row.getInt("sellerID");
-////                        double price = row.getDouble("productPrice");
-////                        String productCategory = row.getString("productCategory");
-////                        String productImage = row.getString("productImage");
-////                        String productState = row.getString("productState");
-////                        String productDate = row("productDate");
-////                        String productDescription = row.getString("productDescription");
-////                        products.add(new Products(id, name, quantity, price, category));
-////
-////
-////                    } catch (Exception ex) {
-////                        Toast.makeText(SellerHomeActivity.this, "error", Toast.LENGTH_SHORT).show();
-////                    }
-////                }
-////                adapter.notifyDataSetChanged();
-////            }
-////        }, null);
-////
-////        queue.add(request);
-//
-//
-//    }
+    /*    private void getProducts() {
+
+       adapter = new RecyclerView.Adapter<SellerItemHolder>() {
+            @NonNull
+            @Override
+            public SellerItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.seller_item_view, parent, false);
+                return new SellerItemHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull SellerItemHolder holder, int position) {
+
+                holder.sellerproductname.setText(products.get(position).getName());
+                holder.sellerproductdescreption.setText(products.get(position).getDescription());
+                holder.sellerproductprice.setText("Price = " + products.get(position).getPrice() + "$");
+                holder.sellerproductstate.setText(products.get(position).getProductState());
+
+                //Picasso.get().load(model.getImage()).into(holder.sellerproductimage);
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        CharSequence options[] = new CharSequence[]{
+                                "yes",
+                                "No"
+                        };
+                        // String uID = getRef(position).getKey();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SellerHomeActivity.this);
+                        builder.setTitle("this product will be removed ?");
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    //deleteProduct(model.getPid());
+                                } else {
+                                    finish();
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                });
+            }
+
+            @Override
+            public int getItemCount() {
+                return 0;
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        String url = "https://mclweb2020.000webhostapp.com/mob/getProducts.php";
+        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject row = response.getJSONObject(i);
+                        int id = row.getInt("productID");
+                        String name = row.getString("productName");
+                        int sellerID = row.getInt("sellerID");
+                        double price = row.getDouble("productPrice");
+                        String productCategory = row.getString("productCategory");
+                        String productImage = row.getString("productImage");
+                        String productState = row.getString("productState");
+                        String productDate = row("productDate");
+                        String productDescription = row.getString("productDescription");
+                        products.add(new Products(id, name, quantity, price, category));
+
+
+                    } catch (Exception ex) {
+                        Toast.makeText(SellerHomeActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }, null);
+
+        queue.add(request);
+
+
+    }*/
 }

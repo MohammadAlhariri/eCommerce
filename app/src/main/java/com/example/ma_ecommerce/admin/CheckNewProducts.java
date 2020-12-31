@@ -1,5 +1,6 @@
 package com.example.ma_ecommerce.admin;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.rey.material.widget.TextView;
 public class CheckNewProducts extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressDialog progressDialog;
     private TextView userName, userPhone, userAddress, orderDate, orderTotal;
 //    private DatabaseReference databaseReference;
 //    private DatabaseReference ProductsRef;
@@ -22,15 +24,17 @@ public class CheckNewProducts extends AppCompatActivity {
         setContentView(R.layout.activity_check_new_products);
         recyclerView = (RecyclerView) findViewById(R.id.approve_products_list);
         layoutManager = new LinearLayoutManager(this);
-        // databaseReference = FirebaseDatabase.getInstance().getReference().child("Product");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        progressDialog = new ProgressDialog(this);
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
         /*FirebaseRecyclerOptions<Products> options =
                 new FirebaseRecyclerOptions.Builder<Products>()
                         .setQuery(databaseReference.orderByChild("productState").equalTo("Not Approved"), Products.class)
@@ -104,5 +108,14 @@ public class CheckNewProducts extends AppCompatActivity {
             }
         });
     */ //   Using FireBaseDataRef
+
+        getOrders();
+
+
     }
+
+    private void getOrders() {
+
+    }
+
 }
