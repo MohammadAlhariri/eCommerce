@@ -88,7 +88,7 @@ public class SearchProductsActivity extends AppCompatActivity {
                     }
 
                 }
-                ProductListAdapter adapter=new ProductListAdapter(products,SearchProductsActivity.this);
+                ProductListAdapter adapter=new ProductListAdapter(products,SearchProductsActivity.this,"Users");
 
 
                 searchList.setAdapter(adapter);

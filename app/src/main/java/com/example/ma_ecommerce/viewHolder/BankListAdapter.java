@@ -46,6 +46,10 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
 
     }
 
+    public BankListAdapter() {
+
+    }
+
 
     @Override
     public BankListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -90,8 +94,8 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
         });
     }
 
-    private void deleteProduct(int pid) {
-        progressDialog.setTitle("Adding New Product  ");
+    public void deleteProduct(int pid) {
+        progressDialog.setTitle("removing product  ");
         progressDialog.setMessage("Please Wait .....");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();

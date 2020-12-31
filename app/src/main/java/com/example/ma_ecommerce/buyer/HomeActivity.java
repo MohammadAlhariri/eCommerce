@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.MainActivity;
 import com.example.ma_ecommerce.R;
+import com.example.ma_ecommerce.admin.AdminMaintainProduct;
 import com.example.ma_ecommerce.model.Products;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 import com.example.ma_ecommerce.seller.SellerHomeActivity;
@@ -53,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    private String type = "";
+    private String type = "Users";
     private ArrayList<Products> products;
 
     @Override
@@ -82,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                     startActivity(intent);
                 }
+
 
             }
         });
@@ -169,7 +171,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void fillListWithProducts() {
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/getPoductsOfSeller.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getAllValidateProducts.php";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -195,7 +197,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                 }
-                ProductListAdapter adapter = new ProductListAdapter(products, HomeActivity.this);
+                ProductListAdapter adapter = new ProductListAdapter(products, HomeActivity.this,type);
 
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);

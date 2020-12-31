@@ -92,6 +92,44 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         }  else {
 
+            final RequestQueue queue = Volley.newRequestQueue(this);
+
+            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/updateSecurityAnswer.php";
+
+
+            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Toast.makeText(ResetPasswordActivity.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
+                    //progressDialog.dismiss();
+                    Intent intent = new Intent(ResetPasswordActivity.this, HomeActivity.class);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(ResetPasswordActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    String uid = Prevalid.online.getID()+"";
+                    HashMap<String, String> usermap = new HashMap<>();
+                    usermap.put("answer1", answer1);
+                    usermap.put("answer2", answer2);
+                    usermap.put("phone", phone);
+
+                    return usermap;
+                }
+            };
+
+            queue.add(request);
+
         }
     }
 

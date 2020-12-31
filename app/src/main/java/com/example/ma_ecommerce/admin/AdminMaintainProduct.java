@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.buyer.HomeActivity;
+import com.example.ma_ecommerce.viewHolder.BankListAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -172,12 +173,53 @@ public class AdminMaintainProduct extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AdminMaintainProduct.this);
                 builder.setTitle("Do you want to delete this product?");
+
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
 
+
+                            final RequestQueue queue = Volley.newRequestQueue(AdminMaintainProduct.this);
+
+                            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteProduct.php";
+
+
+                            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+
+                                    Log.e("dp", response);
+                                    Toast.makeText(AdminMaintainProduct.this, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                    Toast.makeText(AdminMaintainProduct.this, error.toString(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    HashMap<String, String> map2 = new HashMap<>();
+
+                                    map2.put("pid", productId+"");
+
+                                    return map2;
+                                }
+                            };
+
+                            queue.add(request);
+                            Intent intent = new Intent(AdminMaintainProduct.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
                     }
-                });
+                });builder.show();
+
             }
         });
 

@@ -23,8 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
+import com.example.ma_ecommerce.admin.AdminMaintainProduct;
 import com.example.ma_ecommerce.buyer.ProductDetailsActivity;
 import com.example.ma_ecommerce.model.Products;
+import com.example.ma_ecommerce.prevalid.Prevalid;
 import com.example.ma_ecommerce.seller.SellerCategory;
 import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.squareup.picasso.Picasso;
@@ -33,17 +35,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.paperdb.Paper;
+
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder> {
 
     ArrayList<Products> products;
     FragmentActivity activity;
     View selectBank;
+    String parent;
     private ProgressDialog progressDialog;
 
-    public ProductListAdapter(ArrayList<Products> products, FragmentActivity activity) {
+
+    public ProductListAdapter(ArrayList<Products> products, FragmentActivity activity,String parent) {
         this.products = products;
         this.activity = activity;
         progressDialog = new ProgressDialog(activity);
+        this.parent=parent;
+        Paper.init(activity);
 
     }
 
@@ -67,18 +75,28 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         String pimage=products.get(position).getImage();
         Picasso.get().load(pimage).into(holder.sellerproductimage);
         int pid = products.get(position).getPid();
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(activity, ProductDetailsActivity.class);
-                intent.putExtra("pid", pid+"");
-                intent.putExtra("name", pname);
-                intent.putExtra("desc", pdecs);
-                intent.putExtra("pimage", pimage);
-                intent.putExtra("price", price);
-                activity.startActivity(intent);
-
+                if(parent.equals("Users")) {
+                    Intent intent = new Intent(activity, ProductDetailsActivity.class);
+                    intent.putExtra("pid", pid + "");
+                    intent.putExtra("name", pname);
+                    intent.putExtra("desc", pdecs);
+                    intent.putExtra("pimage", pimage);
+                    intent.putExtra("price", price);
+                    activity.startActivity(intent);
+                }
+                else if (parent.equals("Admins")){
+                    Intent intent = new Intent(activity, AdminMaintainProduct.class);
+                    intent.putExtra("pid", pid + "");
+                    intent.putExtra("name", pname);
+                    intent.putExtra("desc", pdecs);
+                    intent.putExtra("pimage", pimage);
+                    intent.putExtra("price", price);
+                    activity.startActivity(intent);
+                }
             }
         });
     }
