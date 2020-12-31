@@ -1,12 +1,30 @@
 package com.example.ma_ecommerce.model;
 
 public class Orders {
-    private String address,city,date,phone,name,totalAmount;
+    private String address,city,date,phone,name,totalAmount,orderID;
 
     public Orders() {
     }
 
-    public Orders(String address, String city, String date,  String phone, String name, String totalAmount) {
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public Orders(String address, String city, String date, String phone, String name, String totalAmount, String orderID) {
+        this.address = address;
+        this.city = city;
+        this.date = date;
+        this.phone = phone;
+        this.name = name;
+        this.totalAmount = totalAmount;
+        this.orderID = orderID;
+    }
+
+    public Orders(String address, String city, String date, String phone, String name, String totalAmount) {
         this.address = address;
         this.city = city;
         this.date = date;

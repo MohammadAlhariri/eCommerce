@@ -23,7 +23,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
+import com.example.ma_ecommerce.admin.AdminUserProducts;
 import com.example.ma_ecommerce.buyer.ProductDetailsActivity;
+import com.example.ma_ecommerce.model.Orders;
 import com.example.ma_ecommerce.model.Products;
 import com.rey.material.widget.TextView;
 
@@ -33,12 +35,12 @@ import java.util.Map;
 
 public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.orderViewHolder>{
 
-    ArrayList<Products> products;
+    ArrayList<Orders> orders ;
     FragmentActivity activity;
     View selectBank;
     private ProgressDialog progressDialog;
-    public orderListAdapter(ArrayList<Products> products, FragmentActivity activity) {
-        this.products = products;
+    public orderListAdapter(ArrayList<Orders> orders, FragmentActivity activity) {
+        this.orders = orders;
         this.activity = activity;
         progressDialog = new ProgressDialog(activity);
 
@@ -53,19 +55,19 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
     }
 
     @Override
-    public void onBindViewHolder(orderListAdapter.orderViewHolder orderViewHolder, int position) {
-        holder.userName.setText("Name : "+model.getName());
-        holder.userPhone.setText("Phone : "+model.getPhone());
-        holder.userAddress.setText("Shipping Address : "+model.getCity()+" , "+model.getAddress());
-        holder.orderDate.setText("Order At  Date : "+model.getDate()+" | "+model.getTime());
-        holder.orderTotal.setText("Total Amount : "+model.getTotalAmount());
+    public void onBindViewHolder(orderListAdapter.orderViewHolder holder, int position) {
+        holder.userName.setText("Name : "+orders.get(position).getName());
+        holder.userPhone.setText("Phone : "+orders.get(position).getPhone());
+        holder.userAddress.setText("Shipping Address : "+orders.get(position).getCity()+" , "+orders.get(position).getAddress());
+        holder.orderDate.setText("Order At  Date : "+orders.get(position).getDate());
+        holder.orderTotal.setText("Total Amount : "+orders.get(position).getTotalAmount());
         holder.showAllOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uID=getRef(position).getKey();
-                Intent intent = new Intent(AdminNewOrdersActivity.this, AdminUserProducts.class);
+               String  uID=orders.get(position).getOrderID();
+                Intent intent = new Intent(activity, AdminUserProducts.class);
                 intent.putExtra("uid",uID);
-                startActivity(intent);
+                activity.startActivity(intent);
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,7 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
                 };
                 //String uID=getRef(position).getKey();
 
-                AlertDialog.Builder builder =new AlertDialog.Builder(AdminNewOrdersActivity.this);
+                AlertDialog.Builder builder =new AlertDialog.Builder(activity);
                 builder.setTitle("Have you Shipped this order Products?");
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
@@ -104,7 +106,7 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return orders.size();
     }
 
     private void deleteProductfromCart(int pid) {

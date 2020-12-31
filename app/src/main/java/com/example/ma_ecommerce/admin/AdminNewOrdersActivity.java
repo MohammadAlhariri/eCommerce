@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.model.Orders;
+import com.example.ma_ecommerce.viewHolder.orderListAdapter;
 import com.rey.material.widget.TextView;
 
 import org.json.JSONArray;
@@ -117,7 +119,7 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
     private void getOrder() {
         ArrayList<Orders> orders = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrders.php";
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -134,13 +136,16 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                         String city = row.getString("customerCity");
                         String address = row.getString("customerAddress");
                         int phone = row.getInt("customerPhone");
-                        orders.add(new Orders(address, city, orderDate, phone + "", customerName, total + ""));
+                        orders.add(new Orders(address, city, orderDate, phone + "", customerName, total + "", orderId + ""));
                     } catch (Exception ex) {
                         Toast.makeText(AdminNewOrdersActivity.this, "error", Toast.LENGTH_SHORT).show();
 
                     }
 
                 }
+                orderListAdapter adapter = new orderListAdapter(orders, AdminNewOrdersActivity.this);
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
