@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.admin.AdminHomeActivity;
 import com.example.ma_ecommerce.buyer.HomeActivity;
+import com.example.ma_ecommerce.buyer.ResetPasswordActivity;
 import com.example.ma_ecommerce.model.Users;
 import com.example.ma_ecommerce.prevalid.Prevalid;
 
@@ -74,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(login.this, ResetPasswordActivity.class);
-                //intent.putExtra("check","login");
-                //startActivity(intent);
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                intent.putExtra("check","login");
+                startActivity(intent);
 
             }
         });

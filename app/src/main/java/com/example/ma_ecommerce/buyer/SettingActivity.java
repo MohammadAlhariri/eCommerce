@@ -7,22 +7,39 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.prevalid.Prevalid;
+import com.example.ma_ecommerce.seller.SellerAddNewProduct;
+import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.paperdb.Paper;
 
 public class SettingActivity extends AppCompatActivity {
     private CircleImageView profileImageView;
@@ -34,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
     private static final int gallery_photo = 1;
     private String checker = "";
     private Button securityButton;
-
+    Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +64,13 @@ public class SettingActivity extends AppCompatActivity {
         closeTextBtn = (TextView) findViewById(R.id.close);
         saveTextButton = (TextView) findViewById(R.id.update);
         securityButton = findViewById(R.id.security_btn);
-
         // userInfoDisplay(profileImageView, fullNameEditText, userPhoneEditText, addressEditText);
         securityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent=new Intent(SettingActivity.this, ResetPasswordActivity.class);
-                //intent.putExtra("check","settings");
-                // startActivity(intent);
+                Intent intent=new Intent(SettingActivity.this, ResetPasswordActivity.class);
+                intent.putExtra("check","settings");
+                 startActivity(intent);
 
             }
         });
@@ -67,11 +83,9 @@ public class SettingActivity extends AppCompatActivity {
         saveTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checker.equals("clicked")) {
+
                     userInfoSaved();
-                } else {
-                    // updateOnlyUserInfo();
-                }
+
             }
         });
         profileChangeTextBtn.setOnClickListener(new View.OnClickListener() {
@@ -85,14 +99,25 @@ public class SettingActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+        userInfoDisplay();
 
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == gallery_photo && resultCode == RESULT_OK && data != null) {
+        if (requestCode==gallery_photo  &&  resultCode==RESULT_OK  &&  data!=null){
             imageuri = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             profileImageView.setImageURI(imageuri);
         }
     }
@@ -109,7 +134,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void userInfoDisplay(final CircleImageView profileImageView, final EditText fullNameEditText, final EditText userPhoneEditText, final EditText addressEditText) {
+    private void userInfoDisplay() {
 
 
         String image = Prevalid.online.getImage();
@@ -140,14 +165,50 @@ public class SettingActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        HashMap<String, Object> userMap = new HashMap<>();
-        userMap.put("name", fullNameEditText.getText().toString());
-        userMap.put("address", addressEditText.getText().toString());
-        userMap.put("phoneOrder", userPhoneEditText.getText().toString());
-        userMap.put("image", myUrl);
 
-        progressDialog.dismiss();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        //---------------------------------------------
+        final RequestQueue queue = Volley.newRequestQueue(this);
 
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/updateProfile.php";
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(SettingActivity.this, "profile updated  successfully ", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
+                Log.e("dp", response);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SettingActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("dp", error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> userMap = new HashMap<>();
+                userMap.put("name", fullNameEditText.getText().toString());
+                userMap.put("address", addressEditText.getText().toString());
+                userMap.put("phone", userPhoneEditText.getText().toString());
+                userMap.put("image", imageString);
+                userMap.put("uid",Prevalid.online.getID()+"");
+
+                progressDialog.dismiss();
+return userMap;
+            }
+        };
+
+        queue.add(request);
         startActivity(new Intent(SettingActivity.this, HomeActivity.class));
         Toast.makeText(SettingActivity.this, "Profile Info update successfully.", Toast.LENGTH_SHORT).show();
         finish();

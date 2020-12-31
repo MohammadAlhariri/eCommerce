@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MA_eCommerce.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".admin.Category"></activity>
+        <activity android:name=".buyer.ResetPasswordActivity"></activity>
+        <activity android:name=".admin.Category" />
         <activity android:name=".buyer.ConfirmFinalOrderActivity" />
         <activity android:name=".admin.AdminMaintainProduct" />
         <activity android:name=".admin.CheckNewProducts" />
@@ -25,7 +26,6 @@
         <activity android:name=".buyer.SearchProductsActivity" />
         <activity android:name=".buyer.ProductDetailsActivity" />
         <activity android:name=".buyer.SettingActivity" />
-
         <activity android:name=".seller.SellerAddNewProduct" />
         <activity android:name=".seller.SellerCategory" />
         <activity android:name=".seller.SellerHomeActivity" />
