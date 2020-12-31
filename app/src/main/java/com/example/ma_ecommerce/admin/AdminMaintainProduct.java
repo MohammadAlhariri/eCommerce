@@ -1,19 +1,38 @@
 package com.example.ma_ecommerce.admin;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
+import com.example.ma_ecommerce.buyer.HomeActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdminMaintainProduct extends AppCompatActivity {
     private Button applyChanges, deleteProduct;
     private EditText name, price, description;
     private ImageView imageView;
     private String productId = "";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +46,8 @@ public class AdminMaintainProduct extends AppCompatActivity {
         applyChanges = (Button) findViewById(R.id.maintain_product_button);
         deleteProduct = (Button) findViewById(R.id.delete_product_button);
         productId = getIntent().getStringExtra("pid");
+        progressDialog = new ProgressDialog(this);
+
     /*
         productRefrence = FirebaseDatabase.getInstance().getReference().child("Product").child(productId);
         displaySpecificProduct();
@@ -131,7 +152,76 @@ public class AdminMaintainProduct extends AppCompatActivity {
             }
         });
     }*/ // Using FirebaseRef
+            // Todo
+            //
+        applyChanges.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                applyChangesForProduct();
+            }
+        });
+        deleteProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence options[] = new CharSequence[]{
+                        "yes",
+                        "no"
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AdminMaintainProduct.this);
+                builder.setTitle("Do you want to delete this product?");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void applyChangesForProduct() {
+        progressDialog.setTitle("Please wait ... ");
+        progressDialog.setMessage("Please wait ... ");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/MainTainProduct.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(AdminMaintainProduct.this, response, Toast.LENGTH_SHORT).show();
+
+                Log.e("db error", response);
+                Intent intent = new Intent(AdminMaintainProduct.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(AdminMaintainProduct.this, error.toString(), Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("pid", productId);
+                map.put("name", name.getText().toString());
+                map.put("Price", price.getText().toString());
+                map.put("description", description.getText().toString());
+
+                return map;
+            }
+        };
+
+        queue.add(request);
 
     }
 }

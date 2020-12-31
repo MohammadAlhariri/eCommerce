@@ -1,10 +1,11 @@
 package com.example.ma_ecommerce.admin;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ma_ecommerce.MainActivity;
 import com.example.ma_ecommerce.R;
@@ -13,7 +14,15 @@ import com.example.ma_ecommerce.buyer.HomeActivity;
 import io.paperdb.Paper;
 
 public class AdminHomeActivity extends AppCompatActivity {
-    private Button logoutBtn, checkOrdersBtn ,maintainBtn,approveBtn;
+    private Button logoutBtn, checkOrdersBtn, maintainBtn, approveBtn;
+
+
+    //TODOLIST
+    // AdminHomeActivity done
+    // AdminMaintainActivity onWork
+    // AdminUserProducts onWork
+    // Category onWork
+    // CheckNewProducts onWork
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +47,7 @@ public class AdminHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminHomeActivity.this, HomeActivity.class);
-                intent.putExtra("Admins","Admins");
+                intent.putExtra("Admins", "Admins");
                 startActivity(intent);
 
             }
@@ -46,7 +55,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         checkOrdersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminHomeActivity.this,AdminNewOrdersActivity.class);
+                Intent intent = new Intent(AdminHomeActivity.this, AdminNewOrdersActivity.class);
                 startActivity(intent);
             }
         });
