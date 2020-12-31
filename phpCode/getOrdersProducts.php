@@ -1,7 +1,7 @@
 <?php
 $uid = addslashes(strip_tags($_GET['uid']));
 include "connection.php";
-    $sql="SELECT `product`.`productID`,`product`.`productName`,`product`.`productPrice`,`order`.`userID`,`order`.`orderTotal`,`order_content`.`quantity`,`order_content`.`price` FROM `product`,`order`,`order_content` WHERE `product`.`productID`=`order_content`.`productID`AND `order`.`orderID`=order_content.orderID WHERE userID=$uid";
+    $sql="SELECT `product`.*,`order`.`orderTotal`,`order_content`.`quantity`,`order_content`.`price` FROM `product`,`order`,`order_content` WHERE `product`.`productID`=`order_content`.`productID`AND `order`.`orderID`=order_content.orderID AND `order`.`userID`=$uid ;";
 
 if ($result = mysqli_query($con,$sql))
   {

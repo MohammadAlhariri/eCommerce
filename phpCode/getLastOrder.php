@@ -1,7 +1,7 @@
 <?php
 $uid = addslashes(strip_tags($_GET['uid']));
 include "connection.php";
-    $sql="SELECT * FROM `order` WHERE userID=$uid ORDER BY orderID DESC LIMIT 1;";
+    $sql = "SELECT * FROM `order` WHERE `userID`=$uid AND `adminApproved` = 'yes';";
 
 if ($result = mysqli_query($con,$sql))
   {
@@ -12,5 +12,6 @@ if ($result = mysqli_query($con,$sql))
   echo json_encode($emparray);
   // Free result set
   mysqli_free_result($result);
+  echo mysqli_error($con);
   mysqli_close($con);
 }

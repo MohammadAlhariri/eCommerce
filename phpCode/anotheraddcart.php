@@ -13,7 +13,6 @@ if(empty($row)||$row["orderState"]=="Shipped"){
     $addoder = "INSERT INTO `order`(`orderDate`, `userID`, `orderTotal`, `orderState`) VALUES (NOW(),$uid,500,'Not Shipped');";
     mysqli_query($con,$addoder);
     $orderid=getOrderId($uid);
-     echo $orderid;
         insertToOrderContent($orderid,$pid,$quantity,$price);
 
 
@@ -29,10 +28,9 @@ getOrderId($uid);
 
 function getOrderId($uid){
     include "connection.php";
-    $sql1="SELECT * FROM `order` WHERE userID=$uid orderState='Not Shipped';";
+    $sql1="SELECT * FROM `order` WHERE userID=$uid  AND orderState='Not Shipped';";
     $res=mysqli_query($con,$sql1);
     $r=mysqli_fetch_array($res);
-    echo "error 123  ".$r["orderID"]."\n";
     return $r["orderID"];
 }
 

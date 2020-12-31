@@ -24,7 +24,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.buyer.HomeActivity;
-import com.example.ma_ecommerce.viewHolder.BankListAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -155,8 +154,8 @@ public class AdminMaintainProduct extends AppCompatActivity {
             }
         });
     }*/ // Using FirebaseRef
-        // Todo
-        //
+
+
         applyChanges.setOnClickListener(new View.OnClickListener() {
 
             @Override

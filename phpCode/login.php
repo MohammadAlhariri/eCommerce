@@ -2,10 +2,10 @@
 
 
 
-$phone = addslashes(strip_tags($_POST['phone']));
+$phone = addslashes(strip_tags($_GET['phone']));
 
-$password = addslashes(strip_tags($_POST['password']));
-$parent=addslashes(strip_tags($_POST['parent']));
+$password = addslashes(strip_tags($_GET['password']));
+$parent=addslashes(strip_tags($_GET['parent']));
 
 
 include "connection.php";
