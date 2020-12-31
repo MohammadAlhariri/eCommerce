@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".buyer.SettingActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_par_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tollpar_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.rey.material.widget.RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Close"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"/>
+            </com.rey.material.widget.RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setting_profile_Image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/profile"
+        android:layout_below="@id/app_par_setting"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+
+
+        />
+    <TextView
+        android:id="@+id/profile_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Profile Image"
+        android:layout_marginTop="4dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/setting_profile_Image"
+        android:layout_marginRight="10dp"/>
+    <EditText
+        android:id="@+id/setting_phone_Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_change"
+        android:hint="Phone Number"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        />
+    <EditText
+        android:id="@+id/setting_full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_phone_Number"
+        android:hint="Full Name "
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        />
+    <EditText
+        android:id="@+id/setting_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_full_name"
+        android:hint="Address "
+        android:layout_margin="15dp"
+        android:padding="10dp"
+
+        />
+    <Button
+        android:id="@+id/security_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_address"
+        android:text="security Question "
+        android:layout_margin="15dp"
+        android:padding="10dp"
+
+        android:background="@drawable/input_design"
+
+        />
+</RelativeLayout>
