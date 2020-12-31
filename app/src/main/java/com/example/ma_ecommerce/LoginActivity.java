@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-                intent.putExtra("check","login");
+                intent.putExtra("check", "login");
                 startActivity(intent);
 
             }
@@ -142,11 +142,11 @@ public class LoginActivity extends AppCompatActivity {
                                     String email = row.getString("userEmail");
                                     String address = row.getString("userAddress");
                                     String image = row.getString("userImage");
-                                    //String answer1 = row.getString("userAnswer1");
-                                    //String answer2 = row.getString("userAnswer2");
+                                    String answer1 = row.getString("userAnswer1");
+                                    String answer2 = row.getString("userAnswer2");
                                     String userpass = row.getString("userPassword");
 
-                                    Users users = new Users(name, userpass, address, image, email, userphone, id);
+                                    Users users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     Log.e("error", new Users(name, userpass, address, image, email, userphone, id).toString());
