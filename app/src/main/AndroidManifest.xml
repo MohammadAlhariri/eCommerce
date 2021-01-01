@@ -17,12 +17,13 @@
         tools:replace="android:theme">
         <activity android:name=".buyer.ChangePasswordActivity"></activity>
         <activity android:name=".buyer.ResetPasswordActivity" />
-        <activity android:name=".admin.Category" />
         <activity android:name=".buyer.ConfirmFinalOrderActivity" />
         <activity android:name=".admin.AdminMaintainProduct" />
         <activity android:name=".admin.CheckNewProducts" />
         <activity android:name=".admin.AdminNewOrdersActivity" />
         <activity android:name=".admin.AdminHomeActivity" />
+        <activity android:name=".admin.AdminUserProducts" />
+
         <activity android:name=".buyer.CartActivity" />
         <activity android:name=".buyer.SearchProductsActivity" />
         <activity android:name=".buyer.ProductDetailsActivity" />

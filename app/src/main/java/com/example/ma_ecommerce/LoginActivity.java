@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Welcome Admin,login successful ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
+                            Paper.book().write(Prevalid.parentname, parentA);
                             startActivity(intent);
                         }
 
@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
+                            Paper.book().write(Prevalid.parentname, parentA);
 
                         } else {
                             progressDialog.dismiss();

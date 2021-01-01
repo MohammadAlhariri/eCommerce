@@ -85,8 +85,9 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-
+                            updateOrderState(orders.get(position).getOrderID());
                             Toast.makeText(activity, "This Order is Shipped ", Toast.LENGTH_SHORT).show();
+
                         }
                         else {
                             activity.finish();
@@ -103,14 +104,14 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
         return orders.size();
     }
 
-    private void deleteProductfromCart(int pid) {
+    private void updateOrderState(String pid) {
         progressDialog.setTitle("Adding New Product  ");
         progressDialog.setMessage("Please Wait .....");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         final RequestQueue queue = Volley.newRequestQueue(activity);
 
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteproductFromCart.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/AdminShippedOrder.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -136,7 +137,7 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map2 = new HashMap<>();
 
-                map2.put("pid", pid+"");
+                map2.put("oid", pid+"");
 
                 return map2;
             }

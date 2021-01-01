@@ -41,13 +41,13 @@ public class CartActivity extends AppCompatActivity {
     private TextView totalAmount, msg1;
     private Button nextProcessButton;
     private int totalOver = 0;
-    String orderState = "Not Shipped";
+    String orderState = "";
     String userApproved="yes";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        checkOrderReference();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.cart_list);
         layoutManager = new LinearLayoutManager(this);
@@ -72,30 +72,30 @@ public class CartActivity extends AppCompatActivity {
     private void checkOrderReference() {
 
         ArrayList<Orders> orders = new ArrayList<>();
-        String sid = Paper.book().read(Prevalid.online.getID() + "");
+        String uid = Prevalid.online.getID() + "";
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrder.php?uid=" + sid;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getLastOrderNotShipped.php?uid=" + uid;
+        Log.i("id",uid);
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-                for (int i = 0; i < response.length(); i++) {
+                int orderId=0;
                     try {
-                        JSONObject row = response.getJSONObject(i);
-                        int orderId = row.getInt("orderID");
+                        JSONObject row = response.getJSONObject(0);
+                        orderId = row.getInt("orderID");
                         int userID = row.getInt("userID");
                         orderState = row.getString("orderState");
                          userApproved=row.getString("adminApproved");
                     } catch (Exception ex) {
                         Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
-
                     }
-
-                }
-                if (orderState.equals("Not Shipped")) {
+                if (userApproved.equals("Yes")) {
                     // totalAmount.setText("Dear " + userName + "\nyour order was shipped successfully");
                     //recyclerView.setVisibility(View.GONE);
                     //msg1.setVisibility(View.VISIBLE);
+                    getProductsOfOrder(orderId+"");
+                    Log.i("oid",orderId+"");
                     nextProcessButton.setClickable(false);
                     Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
                 } else {
@@ -103,6 +103,7 @@ public class CartActivity extends AppCompatActivity {
                     //recyclerView.setVisibility(View.GONE);
                     //msg1.setVisibility(View.VISIBLE);
                     nextProcessButton.setClickable(true);
+                    getProductsOfOrder(orderId+"");
                     Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
 
                 }
@@ -125,11 +126,14 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+       checkOrderReference();
 
+    }
+    public void getProductsOfOrder(String orderID){
         ArrayList<Products> products = new ArrayList<>();
-        String uid =Prevalid.online.getID()+ "";
+
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrdersProducts.php?uid=" + uid;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrderProductsByOrderID.php?oid=" + orderID;
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
