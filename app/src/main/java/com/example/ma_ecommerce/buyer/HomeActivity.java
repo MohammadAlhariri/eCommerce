@@ -263,6 +263,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
 
         } else if (id == R.id.nav_category) {
+            Intent intent = new Intent(HomeActivity.this, ChangePasswordActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("uid",Prevalid.online.getID()+"");
+            startActivity(intent);
 
         } else if (id == R.id.nav_setting) {
 

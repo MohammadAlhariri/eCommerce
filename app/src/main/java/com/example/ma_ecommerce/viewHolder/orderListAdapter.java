@@ -85,7 +85,8 @@ public class orderListAdapter  extends RecyclerView.Adapter<orderListAdapter.ord
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-                                        Toast.makeText(activity, "This Order is Removed ", Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(activity, "This Order is Shipped ", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             activity.finish();

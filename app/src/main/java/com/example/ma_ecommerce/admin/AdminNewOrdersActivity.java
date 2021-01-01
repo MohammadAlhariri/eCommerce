@@ -131,7 +131,6 @@ public class AdminNewOrdersActivity extends AppCompatActivity {
                         double total = row.getDouble("orderTotal");
                         int userID = row.getInt("userID");
                         String orderDate = row.getString("orderDate");
-
                         String city = row.getString("customerCity");
                         String address = row.getString("customerAddress");
                         int phone = row.getInt("customerPhone");

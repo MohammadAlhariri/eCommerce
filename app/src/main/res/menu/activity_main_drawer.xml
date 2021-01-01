@@ -16,9 +16,9 @@
             android:title="Search" />
         <item
             android:id="@+id/nav_category"
-            android:icon="@drawable/category"
+            android:icon="@drawable/add"
             android:iconTint="@color/white"
-            android:title="Category" />
+            android:title="Change Password" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_camera"

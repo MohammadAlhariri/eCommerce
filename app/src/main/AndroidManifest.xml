@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MA_eCommerce.NoActionBar"
         tools:replace="android:theme">
-        <activity android:name=".buyer.ResetPasswordActivity"></activity>
+        <activity android:name=".buyer.ChangePasswordActivity"></activity>
+        <activity android:name=".buyer.ResetPasswordActivity" />
         <activity android:name=".admin.Category" />
         <activity android:name=".buyer.ConfirmFinalOrderActivity" />
         <activity android:name=".admin.AdminMaintainProduct" />
