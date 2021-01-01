@@ -2,10 +2,22 @@ package com.example.ma_ecommerce.model;
 
 public class Users {
 
-    private String name,password,address,image,email,answer1,answer2;
-private int phone,ID;
+    private String name, password, address, image, email, answer1, answer2;
+    private int phone, ID;
 
     public Users(String name, String password, String address, String image, String email, String answer1, String answer2, int phone, int ID) {
+        this.name = name;
+        this.password = password;
+        this.address = address;
+        this.image = image;
+        this.email = email;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.phone = phone;
+        this.ID = ID;
+    }
+
+    public Users(String name, String password, String address, String image, String email, int phone, int ID) {
         this.name = name;
         this.password = password;
         this.address = address;
@@ -86,18 +98,6 @@ private int phone,ID;
     }
 
     public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public Users(String name, String password, String address, String image, String email, int phone, int ID) {
-        this.name = name;
-        this.password = password;
-        this.address = address;
-        this.image = image;
-        this.email = email;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.phone = phone;
         this.ID = ID;
     }
 }

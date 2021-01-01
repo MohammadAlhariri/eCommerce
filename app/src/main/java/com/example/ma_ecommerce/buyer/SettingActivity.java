@@ -37,35 +37,35 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingActivity extends AppCompatActivity {
+    private static final int gallery_photo = 1;
+    private final String myUrl = "";
+    private final String check = "";
+    Bitmap bitmap;
     private CircleImageView profileImageView;
     private EditText fullNameEditText, userPhoneEditText, addressEditText;
     private TextView closeTextBtn, saveTextButton, profileChangeTextBtn;
     private Uri imageuri;
-    private String myUrl = "";
-    private String check = "";
-    private static final int gallery_photo = 1;
     private String checker = "";
     private Button securityButton;
-    Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        profileImageView = (CircleImageView) findViewById(R.id.setting_profile_Image);
-        fullNameEditText = (EditText) findViewById(R.id.setting_full_name);
-        userPhoneEditText = (EditText) findViewById(R.id.setting_phone_Number);
-        addressEditText = (EditText) findViewById(R.id.setting_address);
-        profileChangeTextBtn = (TextView) findViewById(R.id.profile_change);
-        closeTextBtn = (TextView) findViewById(R.id.close);
-        saveTextButton = (TextView) findViewById(R.id.update);
+        profileImageView = findViewById(R.id.setting_profile_Image);
+        fullNameEditText = findViewById(R.id.setting_full_name);
+        userPhoneEditText = findViewById(R.id.setting_phone_Number);
+        addressEditText = findViewById(R.id.setting_address);
+        profileChangeTextBtn = findViewById(R.id.profile_change);
+        closeTextBtn = findViewById(R.id.close);
+        saveTextButton = findViewById(R.id.update);
         securityButton = findViewById(R.id.security_btn);
-        // userInfoDisplay(profileImageView, fullNameEditText, userPhoneEditText, addressEditText);
         securityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SettingActivity.this, ResetPasswordActivity.class);
-                intent.putExtra("check","settings");
-                 startActivity(intent);
+                Intent intent = new Intent(SettingActivity.this, ResetPasswordActivity.class);
+                intent.putExtra("check", "settings");
+                startActivity(intent);
 
             }
         });
@@ -79,7 +79,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    userInfoSaved();
+                userInfoSaved();
 
             }
         });
@@ -87,10 +87,6 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checker = "clicked";
-
-/*                    CropImage.activity(imageUri)
-                            .setAspectRatio(1, 1)
-                            .start(Setting.this);*/
 
                 openGallery();
             }
@@ -107,7 +103,7 @@ public class SettingActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==gallery_photo  &&  resultCode==RESULT_OK  &&  data!=null){
+        if (requestCode == gallery_photo && resultCode == RESULT_OK && data != null) {
             imageuri = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
@@ -161,7 +157,6 @@ public class SettingActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -179,8 +174,7 @@ public class SettingActivity extends AppCompatActivity {
                 Toast.makeText(SettingActivity.this, "profile updated  successfully ", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
-                Log.e("dp", response);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//              Log.e("dp", response);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
@@ -197,10 +191,10 @@ public class SettingActivity extends AppCompatActivity {
                 userMap.put("address", addressEditText.getText().toString());
                 userMap.put("phone", userPhoneEditText.getText().toString());
                 userMap.put("image", imageString);
-                userMap.put("uid",Prevalid.online.getID()+"");
+                userMap.put("uid", Prevalid.online.getID() + "");
 
                 progressDialog.dismiss();
-return userMap;
+                return userMap;
             }
         };
 

@@ -1,7 +1,5 @@
 package com.example.ma_ecommerce.buyer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,8 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.prevalid.Prevalid;
-import com.example.ma_ecommerce.seller.SellerLoginActivity;
-import com.example.ma_ecommerce.seller.SellerRegestrationActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,29 +30,30 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
     private Button confirmFinalOrder;
     private String totalAmount = "";
     private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_final_order);
-        confirmFinalOrder = (Button) findViewById(R.id.confirm_order_final);
-        shippmentAddress = (EditText) findViewById(R.id.shipment_address);
-        shippmentCity = (EditText) findViewById(R.id.shipment_city);
-        shippmentName = (EditText) findViewById(R.id.shipment_name);
-        shippmentPhone = (EditText) findViewById(R.id.shipment_phone);
+        confirmFinalOrder = findViewById(R.id.confirm_order_final);
+        shippmentAddress = findViewById(R.id.shipment_address);
+        shippmentCity = findViewById(R.id.shipment_city);
+        shippmentName = findViewById(R.id.shipment_name);
+        shippmentPhone = findViewById(R.id.shipment_phone);
         totalAmount = getIntent().getStringExtra("total");
         progressDialog = new ProgressDialog(this);
 
-        Toast.makeText(this, "Total Amount is :$"+totalAmount, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Total Amount is :$" + totalAmount, Toast.LENGTH_SHORT).show();
         confirmFinalOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(shippmentCity.getText().toString())||
-                        TextUtils.isEmpty(shippmentAddress.getText().toString())||
-                        TextUtils.isEmpty(shippmentName.getText().toString())||
-                        TextUtils.isEmpty(shippmentPhone.getText().toString())){
+                if (TextUtils.isEmpty(shippmentCity.getText().toString()) ||
+                        TextUtils.isEmpty(shippmentAddress.getText().toString()) ||
+                        TextUtils.isEmpty(shippmentName.getText().toString()) ||
+                        TextUtils.isEmpty(shippmentPhone.getText().toString())) {
                     Toast.makeText(ConfirmFinalOrderActivity.this, "Please fill information that needed", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
 
                     confirmationOrder();
                 }
@@ -76,7 +75,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Toast.makeText(ConfirmFinalOrderActivity.this, response, Toast.LENGTH_SHORT).show();
 
-                Log.e("db error",response);
+                Log.e("db error", response);
                 Intent intent = new Intent(ConfirmFinalOrderActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -93,9 +92,9 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("uid", Prevalid.online.getID()+"");
+                map.put("uid", Prevalid.online.getID() + "");
                 map.put("totalAmount", totalAmount);
-                map.put("name",shippmentName.getText().toString() );
+                map.put("name", shippmentName.getText().toString());
                 map.put("phone", shippmentPhone.getText().toString());
                 map.put("city", shippmentCity.getText().toString());
                 map.put("address", shippmentAddress.getText().toString());
@@ -104,7 +103,6 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity {
         };
 
         queue.add(request);
-
 
 
     }

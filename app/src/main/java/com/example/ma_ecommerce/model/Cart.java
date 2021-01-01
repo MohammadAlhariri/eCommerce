@@ -1,7 +1,7 @@
 package com.example.ma_ecommerce.model;
 
 public class Cart {
-    private String pid,pname,price,discount,quantity;
+    private String pid, pname, price, discount, quantity;
 
     public Cart() {
     }

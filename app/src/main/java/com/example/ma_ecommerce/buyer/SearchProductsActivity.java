@@ -1,10 +1,5 @@
 package com.example.ma_ecommerce.buyer;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,8 +19,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.model.Products;
-import com.example.ma_ecommerce.seller.SellerHomeActivity;
-import com.example.ma_ecommerce.viewHolder.BankListAdapter;
 import com.example.ma_ecommerce.viewHolder.ProductListAdapter;
 
 import org.json.JSONArray;
@@ -49,10 +46,11 @@ public class SearchProductsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchInput = inputText.getText().toString();
-                if(TextUtils.isEmpty(searchInput)){
+                if (TextUtils.isEmpty(searchInput)) {
                     Toast.makeText(SearchProductsActivity.this, "Please fill the input search before ", Toast.LENGTH_SHORT).show();
+                } else {
+                    onStart();
                 }
-                else{onStart();}
             }
         });
     }
@@ -88,7 +86,7 @@ public class SearchProductsActivity extends AppCompatActivity {
                     }
 
                 }
-                ProductListAdapter adapter=new ProductListAdapter(products,SearchProductsActivity.this,"Users");
+                ProductListAdapter adapter = new ProductListAdapter(products, SearchProductsActivity.this, "Users");
 
 
                 searchList.setAdapter(adapter);

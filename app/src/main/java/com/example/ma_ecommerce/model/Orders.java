@@ -1,17 +1,9 @@
 package com.example.ma_ecommerce.model;
 
 public class Orders {
-    private String address,city,date,phone,name,totalAmount,orderID;
+    private String address, city, date, phone, name, totalAmount, orderID;
 
     public Orders() {
-    }
-
-    public String getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
     }
 
     public Orders(String address, String city, String date, String phone, String name, String totalAmount, String orderID) {
@@ -32,6 +24,14 @@ public class Orders {
         this.phone = phone;
         this.name = name;
         this.totalAmount = totalAmount;
+    }
+
+    public String getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     public String getAddress() {
@@ -57,7 +57,6 @@ public class Orders {
     public void setDate(String date) {
         this.date = date;
     }
-
 
 
     public String getPhone() {

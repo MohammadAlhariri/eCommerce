@@ -1,7 +1,5 @@
 package com.example.ma_ecommerce.buyer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,32 +10,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ma_ecommerce.LoginActivity;
 import com.example.ma_ecommerce.R;
-import com.example.ma_ecommerce.admin.AdminHomeActivity;
-import com.example.ma_ecommerce.model.Users;
 import com.example.ma_ecommerce.prevalid.Prevalid;
-import com.example.ma_ecommerce.seller.SellerAddNewProduct;
-import com.example.ma_ecommerce.seller.SellerHomeActivity;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.paperdb.Paper;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     private String check = "";
@@ -75,7 +65,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setAnswers();
-                    //displayPreviousAnswers();
                 }
             });
 
@@ -102,9 +91,9 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         } else {
 //
-          final RequestQueue queue = Volley.newRequestQueue(this);
+            final RequestQueue queue = Volley.newRequestQueue(this);
 //
-            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/checkAnswerGET.php?answer1="+answer1+"&answer2="+answer2+"&phone="+phone;
+            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/checkAnswerGET.php?answer1=" + answer1 + "&answer2=" + answer2 + "&phone=" + phone;
 //
             JsonArrayRequest jsArrRequest = new JsonArrayRequest
                     (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -117,11 +106,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                                     JSONObject row = response.getJSONObject(0);
                                     String id = row.getString("userID");
-                                    Toast.makeText(ResetPasswordActivity.this, "Here we go "+id, Toast.LENGTH_LONG).show();
-                                    if(!TextUtils.isEmpty(id)){
+                                    Toast.makeText(ResetPasswordActivity.this, "Here we go " + id, Toast.LENGTH_LONG).show();
+                                    if (!TextUtils.isEmpty(id)) {
                                         Intent intent = new Intent(ResetPasswordActivity.this, ChangePasswordActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        intent.putExtra("uid",id);
+                                        intent.putExtra("uid", id);
                                         startActivity(intent);
                                     }
                                 } catch (Exception ex) {
@@ -145,34 +134,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
 
             requestQueue.add(jsArrRequest);
-////
-//            HashMap<String, String> usermap = new HashMap<>();
-//            usermap.put("answer1", answer1);
-//            usermap.put("answer2", answer2);
-//            usermap.put("phone", phone);
-//            JsonObjectRequest req = new JsonObjectRequest(url, new JSONObject(usermap),
-//                    new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            for (int i = 0; i < response.length(); i++) {
-//                                try {
-//
-//                                    JSONObject row = response.getJSONObject("userID");
-//                                    int id = row.getInt("userID");
-//                                    Log.i("id",id+"");
-//                                } catch (Exception ex) {
-//                                    Toast.makeText(ResetPasswordActivity.this, "error", Toast.LENGTH_SHORT).show();
-//                                    Log.e("error", ex.toString());
-//                                }
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    VolleyLog.e("Error: ", error.getMessage());
-//                }
-//            });
-//            queue.add(req);
 
         }
     }
@@ -193,7 +154,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 public void onResponse(String response) {
 
                     Toast.makeText(ResetPasswordActivity.this, "Product added successfully ", Toast.LENGTH_SHORT).show();
-                    //progressDialog.dismiss();
                     Intent intent = new Intent(ResetPasswordActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

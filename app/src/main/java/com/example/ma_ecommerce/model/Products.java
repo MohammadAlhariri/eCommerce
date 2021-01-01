@@ -1,6 +1,33 @@
 package com.example.ma_ecommerce.model;
 
 public class Products {
+    private String category, description, name, image, date, productState;
+    private double price;
+    private int pid, quantity;
+
+    public Products() {
+    }
+
+    public Products(String name, double price, int pid, int quantity, String description, String image) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.pid = pid;
+        this.quantity = quantity;
+        this.image = image;
+    }
+
+    public Products(String description, String name, double price, String image, int pid, String date, String category, String productState) {
+        this.description = description;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.pid = pid;
+        this.date = date;
+        this.category = category;
+        this.productState = productState;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -25,32 +52,6 @@ public class Products {
         this.name = name;
     }
 
-    private String category, description,name,image,date, productState;
-private double price;
-private int pid,quantity;
-    public Products() {
-    }
-
-    public Products(String name,  double price, int pid, int quantity,String description,String image) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.pid = pid;
-        this.quantity = quantity;
-        this.image = image;
-    }
-
-    public Products(String description, String name, double price, String image, int pid, String date, String category, String productState) {
-        this.description = description;
-        this.name = name;
-        this.price = price;
-        this.image = image;
-        this.pid = pid;
-        this.date = date;
-        this.category=category;
-        this.productState = productState;
-    }
-
     public String getProductState() {
         return productState;
     }
@@ -66,7 +67,6 @@ private int pid,quantity;
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 
     public double getPrice() {
@@ -89,6 +89,10 @@ private int pid,quantity;
         return pid;
     }
 
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     @Override
     public String toString() {
         return "Products{" +
@@ -101,10 +105,6 @@ private int pid,quantity;
                 ", price=" + price +
                 ", pid=" + pid +
                 '}';
-    }
-
-    public void setPid(int pid) {
-        this.pid = pid;
     }
 
     public String getDate() {
