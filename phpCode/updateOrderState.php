@@ -9,7 +9,7 @@
 
 include "connection.php";
 
-$sql = "UPDATE `order` SET `orderTotal` = '440', `customerName` = '$name', `customerAddress` = '$address', `customerPhone` = '$phone', `customerCity` = '$city' WHERE `order`.`orderID` = 28;";
+$sql = "UPDATE `order` SET `orderTotal` = '440', `customerName` = '$name', `customerAddress` = '$address', `customerPhone` = $phone , `customerCity` = '$city' ,`adminApproved`=`Yes` WHERE `order`.`userID` = $uid;";
 mysqli_query($con,$sql);
 echo mysqli_error($con);
 

@@ -30,6 +30,7 @@ public class AdminUserProducts extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         /*        FirebaseRecyclerOptions<Cart> options =
                 new FirebaseRecyclerOptions.Builder<Cart>()
                         .setQuery(cartReference, Cart.class).build();

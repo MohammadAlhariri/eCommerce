@@ -1,7 +1,7 @@
 <?php
 
 
-$con = mysqli_connect("localhost","id9872892_admin8846", "GfMbI=}wL]-%Mv+2","id9872892_mz_ecommerce");
+$con = mysqli_connect("localhost","id15791286_admin", "JQ701hh+E8rYG-t=","id15791286_ecommerceliu");
 // Check connection
 if (mysqli_connect_errno())
   {

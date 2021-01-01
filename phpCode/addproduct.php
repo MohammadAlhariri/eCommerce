@@ -17,7 +17,7 @@
      echo "Upload failed";
     }
 
-    $path1="https://mohammadalhariri.000webhostapp.com/MZ_eCommerce/".$path;
+    $path1="https://ecommerceliu.000webhostapp.com/eCommerceLIU/".$path;
     $state="Not Validate";
     $date=getdate();
 
