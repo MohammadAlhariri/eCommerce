@@ -151,7 +151,7 @@ public class CartActivity extends AppCompatActivity {
                     }
 
                 }
-                CartItemAdapter adapter = new CartItemAdapter(products, CartActivity.this);
+                CartItemAdapter adapter = new CartItemAdapter(products, CartActivity.this,"Users");
 
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);

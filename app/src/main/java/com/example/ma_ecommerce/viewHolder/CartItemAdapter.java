@@ -34,23 +34,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemViewHolder> {
+    String parent;
 
 
     ArrayList<Products> products;
     FragmentActivity activity;
-   View selectBank;
+    View selectBank;
     private ProgressDialog progressDialog;
-   public CartItemAdapter(ArrayList<Products> products, FragmentActivity activity) {
-      this.products = products;
+
+    public CartItemAdapter(ArrayList<Products> products, FragmentActivity activity, String parent) {
+        this.products = products;
         this.activity = activity;
+        this.parent = parent;
         progressDialog = new ProgressDialog(activity);
 
-   }
+    }
 
 
     @Override
     public CartItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View orderListLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout, parent,false);
+        View orderListLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items_layout, parent, false);
         CartItemViewHolder orderListViewHolder = new CartItemAdapter.CartItemViewHolder(orderListLayout);
         return orderListViewHolder;
     }
@@ -59,43 +62,164 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
     public void onBindViewHolder(CartItemViewHolder cartViewHolder, int position) {
         //holder.bankName.setText(bankListModels.get(position).getBankName());
 
-        cartViewHolder.txtProductQuantity.setText(products.get(position).getQuantity()+"");
+        cartViewHolder.txtProductQuantity.setText(products.get(position).getQuantity() + "");
         cartViewHolder.txtProductName.setText(products.get(position).getName());
-        cartViewHolder.txtProductPrice.setText(products.get(position).getPrice()+"");
+        cartViewHolder.txtProductPrice.setText(products.get(position).getPrice() + "");
         cartViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (parent.equals("Users")) {
+                    CharSequence sequence[] = new CharSequence[]{
+                            "Edit",
+                            "Remove"
+                    };
+                    int pid = products.get(position).getPid();
 
-                CharSequence sequence[]=new CharSequence[]{
-                        "Edit",
-                        "Remove"
-                };
-                int pid = products.get(position).getPid();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle("this product will be removed ?");
+                    builder.setItems(sequence, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setTitle("this product will be removed ?");
-                builder.setItems(sequence, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which != 0) {
-                            deleteProductfromCart(pid);
-                        } else {
-                            deleteProductfromCart(pid);
-                            dialog.dismiss();
-                            Intent intent = new Intent(activity, ProductDetailsActivity.class);
+                            if (which != 0) {
+                                deleteProductfromCart(pid);
+                                progressDialog.dismiss();
 
-                            intent.putExtra("pid", pid+"");
-                            intent.putExtra("name", products.get(position).getName());
-                            intent.putExtra("desc", products.get(position).getDescription());
-                            intent.putExtra("pimage", products.get(position).getImage());
-                            intent.putExtra("price", products.get(position).getPrice()+"");
-                            activity.startActivity(intent);
+                            } else {
+                                deleteProductfromCart(pid);
+                                dialog.dismiss();
+                                Intent intent = new Intent(activity, ProductDetailsActivity.class);
+
+                                intent.putExtra("pid", pid + "");
+                                intent.putExtra("name", products.get(position).getName());
+                                intent.putExtra("desc", products.get(position).getDescription());
+                                intent.putExtra("pimage", products.get(position).getImage());
+                                intent.putExtra("price", products.get(position).getPrice() + "");
+                                activity.startActivity(intent);
+                            }
                         }
-                    }
-                });
-                builder.show();
+
+
+                    });
+                    builder.show();
+                }else if(parent.equals("Admins")){
+                    CharSequence sequence[] = new CharSequence[]{
+                            "Approved",
+                            "Decline",
+                            "Cancel"
+                    };
+                    int pid = products.get(position).getPid();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle("this product will be removed ?");
+                    builder.setItems(sequence, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            if (which == 0) {
+                                approvedProduct(pid);
+                          } else if (which==1){
+                               deleteProduct(pid);
+
+
+                            }
+                        }
+
+
+                    });
+                    builder.show();
+                }
             }
         });
+    }
+
+    private void approvedProduct(int pid) {
+
+
+        progressDialog.setTitle("Approve product  ");
+        progressDialog.setMessage("Please Wait .....");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        final RequestQueue queue = Volley.newRequestQueue(activity);
+
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/approveProduct.php";
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Log.e("dp", response);
+                Toast.makeText(activity, "Product Approved successfully ", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+
+                Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map2 = new HashMap<>();
+
+                map2.put("pid", pid+"");
+                ;
+                return map2;
+            }
+        };
+
+        queue.add(request);
+
+    }
+
+    private void deleteProduct(int pid) {
+
+            progressDialog.setTitle("removing product  ");
+            progressDialog.setMessage("Please Wait .....");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            final RequestQueue queue = Volley.newRequestQueue(activity);
+
+            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteProduct.php";
+
+
+            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Log.e("dp", response);
+                    Toast.makeText(activity, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
+
+                    progressDialog.dismiss();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
+
+                    Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> map2 = new HashMap<>();
+
+                    map2.put("pid", pid+"");
+                    ;
+                    return map2;
+                }
+            };
+
+            queue.add(request);
+
+
     }
 
     @Override
@@ -136,7 +260,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map2 = new HashMap<>();
 
-                map2.put("pid", pid+"");
+                map2.put("pid", pid + "");
 
                 return map2;
             }
@@ -144,7 +268,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
         queue.add(request);
     }
-//
+
+    //
 //
 //    @Override
 //    public int getItemCount() {
@@ -153,14 +278,14 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 //
 //
     public class CartItemViewHolder extends RecyclerView.ViewHolder implements ItemClickListener {
-        public TextView txtProductName,txtProductPrice,txtProductQuantity;
+        public TextView txtProductName, txtProductPrice, txtProductQuantity;
         private ItemClickListener listener;
 
         public CartItemViewHolder(View itemView) {
             super(itemView);
-            txtProductName=itemView.findViewById(R.id.product_name);
-            txtProductPrice=itemView.findViewById(R.id.product_price);
-            txtProductQuantity=itemView.findViewById(R.id.product_quantity);
+            txtProductName = itemView.findViewById(R.id.product_name);
+            txtProductPrice = itemView.findViewById(R.id.product_price);
+            txtProductQuantity = itemView.findViewById(R.id.product_quantity);
 
 
         }
@@ -176,7 +301,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             }
         }
     }
-
 
 
 }

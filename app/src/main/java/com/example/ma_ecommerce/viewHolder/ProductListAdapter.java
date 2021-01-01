@@ -117,6 +117,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                 Log.e("dp", response);
                 Toast.makeText(activity, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
 
 
             }
@@ -126,7 +127,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 progressDialog.dismiss();
                 Log.e("dp", error.toString());
                 Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
-
+                progressDialog.dismiss();
             }
         }) {
             @Override

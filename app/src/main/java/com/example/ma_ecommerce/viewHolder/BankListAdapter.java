@@ -110,6 +110,7 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
 
                 Log.e("dp", response);
                 Toast.makeText(activity, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
 
 
             }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -79,13 +80,13 @@ public class SellerAddNewProduct extends AppCompatActivity {
         description = p_description.getText().toString();
         name = p_name.getText().toString();
         price = p_price.getText().toString();
-        //if (imageuri == null) {
-        //  Toast.makeText(this, "please Enter the image of this product", Toast.LENGTH_SHORT).show();
-        //} else if (TextUtils.isEmpty(description) || TextUtils.isEmpty(name) || TextUtils.isEmpty(price)) {
-        //  Toast.makeText(this, "please fill all mandatory fields", Toast.LENGTH_SHORT).show();
-        //} else {
+        if (imageuri == null) {
+          Toast.makeText(this, "please Enter the image of this product", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(description) || TextUtils.isEmpty(name) || TextUtils.isEmpty(price)) {
+          Toast.makeText(this, "please fill all mandatory fields", Toast.LENGTH_SHORT).show();
+        } else {
         storeProduct();
-        //}
+        }
     }
 
     private void storeProduct() {
