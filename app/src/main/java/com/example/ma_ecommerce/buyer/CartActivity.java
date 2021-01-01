@@ -75,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
 
                 int orderId = 0;
+
                 try {
                     JSONObject row = response.getJSONObject(0);
                     orderId = row.getInt("orderID");
@@ -118,11 +119,12 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    public void getProductsOfOrder(String orderID) {
+    public void getProductsOfOrder(String userID) {
         ArrayList<Products> products = new ArrayList<>();
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrderProductsByOrderID.php?oid=" + orderID;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrderProductsByOrderID.php?uid=" + userID;
+
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

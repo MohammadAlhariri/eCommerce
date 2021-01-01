@@ -41,9 +41,9 @@ public class AdminUserProducts extends AppCompatActivity {
         super.onStart();
 
         ArrayList<Products> products = new ArrayList<>();
-        String uid = getIntent().getStringExtra("uid");
+        String orderID = getIntent().getStringExtra("uid");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrderProductsByOrderID.php?uid=" + uid;
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/getOrderProductsByOrderID2.php?oid=" + orderID;
         JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
