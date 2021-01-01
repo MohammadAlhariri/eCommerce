@@ -36,10 +36,11 @@ public class AdminHomeActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Paper.book().destroy();
                 Intent intent = new Intent(AdminHomeActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                Paper.book().destroy();
+
                 finish();
             }
         });

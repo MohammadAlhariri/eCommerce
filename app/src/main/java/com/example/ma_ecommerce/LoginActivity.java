@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginuser() {
         String phone1 = phone.getText().toString();
         String password = pass.getText().toString();
+
         if (TextUtils.isEmpty(phone1) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Please fill all information", Toast.LENGTH_SHORT).show();
         } else {
@@ -111,17 +112,16 @@ public class LoginActivity extends AppCompatActivity {
             Paper.book().write(Prevalid.pass, password);
             Paper.book().write(Prevalid.parentname, parentname);
 
-
         }
 
 
         String HTTP_SERVER_URL = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/login.php?phone=" + phone + "&password=" + password + "&parent=" + parentname;
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (Request.Method.GET, HTTP_SERVER_URL, null, new Response.Listener<JSONArray>() {
-
+                String parentA="";
                     @Override
                     public void onResponse(JSONArray response) {
-
+                        Users users = null;
                         for (int i = 0; i < response.length(); i++) {
                             try {
 
@@ -136,25 +136,30 @@ public class LoginActivity extends AppCompatActivity {
                                 String answer1 = row.getString("userAnswer1");
                                 String answer2 = row.getString("userAnswer2");
                                 String userpass = row.getString("userPassword");
+                                parentA=row.getString("parent");
+                                if(userpass==null){
+                                    Toast.makeText(LoginActivity.this, "The password is incorrect", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                     users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
+                                    Prevalid.online = users;
+                                }
 
-                                Users users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
-                                Prevalid.online = users;
                             } catch (Exception ex) {
                                 Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
                                 Log.e("error", ex.toString());
                             }
                         }
                         progressDialog.dismiss();
-                        if (parentname.equals("Admins")) {
+                        if (parentA.equals("Admins")&&Prevalid.online!=null) {
                             Toast.makeText(LoginActivity.this, "Welcome Admin,login successful ", Toast.LENGTH_SHORT).show();
-
                             Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
                         }
 
-                        else if (parentname.equals("Users")) {
+                        else if (parentA.equals("Users")&&Prevalid.online!=null) {
                             Toast.makeText(LoginActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

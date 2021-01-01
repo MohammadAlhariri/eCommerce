@@ -102,13 +102,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.profile_image);
-
-            if (!TextUtils.isEmpty(Prevalid.online.getName())) {
-                userNameTextView.setText(Prevalid.online.getName());
-                if (!Prevalid.online.getImage().equals("") || !TextUtils.isEmpty(Prevalid.online.getImage()))
-                    Picasso.get().load(Prevalid.online.getImage()).placeholder(R.drawable.profile).into(profileImageView);
-                Log.e("user", Prevalid.online.toString());
-            }
+if(Prevalid.online!=null){
+    if (!TextUtils.isEmpty(Prevalid.online.getName())) {
+        userNameTextView.setText(Prevalid.online.getName());
+        if (!Prevalid.online.getImage().equals("") || !TextUtils.isEmpty(Prevalid.online.getImage()))
+            Picasso.get().load(Prevalid.online.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        Log.e("user", Prevalid.online.toString());
+    }}
 
 
         recyclerView = findViewById(R.id.recycler);

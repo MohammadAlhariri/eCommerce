@@ -102,17 +102,17 @@ public class MainActivity extends AppCompatActivity {
         String phone = Paper.book().read(Prevalid.userNumber);
         String pass = Paper.book().read(Prevalid.pass);
         String parent = Paper.book().read(Prevalid.parentname);
-
-        if (phone != "" && pass != "" && parent != "") {
-            if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pass)) {
-                allow_access(phone, pass, parent);
-                progressDialog.setTitle("Already Login");
-                progressDialog.setMessage("Please Wait ....... ");
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
-            }
+if(Prevalid.online!=null) {
+    if (phone != "" && pass != "" && parent != "") {
+        if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pass)) {
+            allow_access(phone, pass, parent);
+            progressDialog.setTitle("Already Login");
+            progressDialog.setMessage("Please Wait ....... ");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
         }
-
+    }
+}
 
     }
 
@@ -154,10 +154,14 @@ public class MainActivity extends AppCompatActivity {
                                 String answer1 = row.getString("userAnswer1");
                                 String answer2 = row.getString("userAnswer2");
                                 String userpass = row.getString("userPassword");
-                                Users users ;
-                                users = new Users(name, userpass, address, image, email, userphone, id);
-                                Log.e("users",users.toString());
-                                Prevalid.online = users;
+                                Users users=null ;
+                                if(userpass==null){
+                                    Toast.makeText(MainActivity.this, "The password is incorrect", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
+                                    Prevalid.online = users;
+                                }
                             } catch (Exception ex) {
                                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                             }
