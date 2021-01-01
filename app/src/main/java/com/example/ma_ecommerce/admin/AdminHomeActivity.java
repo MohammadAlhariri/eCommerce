@@ -16,22 +16,14 @@ import io.paperdb.Paper;
 public class AdminHomeActivity extends AppCompatActivity {
     private Button logoutBtn, checkOrdersBtn, maintainBtn, approveBtn;
 
-
-    //TODOLIST
-    // AdminHomeActivity done
-    // AdminMaintainActivity onWork
-    // AdminUserProducts onWork
-    // Category onWork
-    // CheckNewProducts onWork
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
-        logoutBtn = (Button) findViewById(R.id.admin_logout_btn);
-        checkOrdersBtn = (Button) findViewById(R.id.check_orders_btn);
-        maintainBtn = (Button) findViewById(R.id.maintain_btn);
-        approveBtn = (Button) findViewById(R.id.approve_products_btn);
+        logoutBtn = findViewById(R.id.admin_logout_btn);
+        checkOrdersBtn = findViewById(R.id.check_orders_btn);
+        maintainBtn = findViewById(R.id.maintain_btn);
+        approveBtn = findViewById(R.id.approve_products_btn);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
