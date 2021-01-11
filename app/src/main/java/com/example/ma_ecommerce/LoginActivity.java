@@ -1,7 +1,5 @@
 package com.example.ma_ecommerce;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,12 +31,12 @@ import org.json.JSONObject;
 import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
+    public String parentname = "Users";
     private Button log;
     private EditText phone, pass;
     private com.rey.material.widget.CheckBox remember;
     private ProgressDialog progressDialog;
     private TextView admin, notadmin, forget;
-    public String parentname = "Users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         notadmin = (TextView) findViewById(R.id.notadmin);
         forget = (TextView) findViewById(R.id.forget);
         progressDialog = new ProgressDialog(this);
-        //--------------
         Paper.init(this);
-        //--------------
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
             allow_access(phone1, password, parentname);
+
         }
     }
 
@@ -118,7 +117,8 @@ public class LoginActivity extends AppCompatActivity {
         String HTTP_SERVER_URL = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/login.php?phone=" + phone + "&password=" + password + "&parent=" + parentname;
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (Request.Method.GET, HTTP_SERVER_URL, null, new Response.Listener<JSONArray>() {
-                String parentA="";
+                    String parentA = "";
+
                     @Override
                     public void onResponse(JSONArray response) {
                         Users users = null;
@@ -136,12 +136,11 @@ public class LoginActivity extends AppCompatActivity {
                                 String answer1 = row.getString("userAnswer1");
                                 String answer2 = row.getString("userAnswer2");
                                 String userpass = row.getString("userPassword");
-                                parentA=row.getString("parent");
-                                if(userpass==null){
+                                parentA = row.getString("parent");
+                                if (userpass == null) {
                                     Toast.makeText(LoginActivity.this, "The password is incorrect", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                     users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
+                                } else {
+                                    users = new Users(name, userpass, address, image, email, answer1, answer2, userphone, id);
                                     Prevalid.online = users;
                                 }
 
@@ -151,22 +150,21 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                         progressDialog.dismiss();
-                        if (parentA.equals("Admins")&&Prevalid.online!=null) {
-                            Toast.makeText(LoginActivity.this, "Welcome Admin,login successful ", Toast.LENGTH_SHORT).show();
+                        if (parentA.equals("Admins") && Prevalid.online != null) {
+                            Toast.makeText(LoginActivity.this, "Welcome Admin,login successful.. ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             Paper.book().write(Prevalid.parentname, parentA);
                             startActivity(intent);
-                        }
-
-                        else if (parentA.equals("Users")&&Prevalid.online!=null) {
-                            Toast.makeText(LoginActivity.this, "Welcome ,login successful ", Toast.LENGTH_SHORT).show();
+                        } else if (parentA.equals("Users") && Prevalid.online != null) {
+                            Toast.makeText(LoginActivity.this, "Welcome, login successful.. ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             Paper.book().write(Prevalid.parentname, parentA);
 
                         } else {
+                            Toast.makeText(LoginActivity.this, "Wrong Password or Username!", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }

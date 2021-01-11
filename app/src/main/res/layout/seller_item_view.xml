@@ -26,12 +26,13 @@
             android:textStyle="bold" />
 
         <ImageView
+
             android:id="@+id/seller_productimage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@id/productname"
+            android:layout_below="@id/seller_product_name"
             android:layout_marginTop="2dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/seller_productPrice"
@@ -45,22 +46,23 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/seller_productDes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/seller_productPrice"
-            android:layout_marginTop="10dp"
-            android:text="Product Description"
-            android:textAlignment="center"
-            android:textColor="@color/purple"
-            android:textSize="14sp" />
-        <TextView
             android:id="@+id/seller_productState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/seller_productDes"
             android:layout_marginTop="10dp"
             android:text="Product State"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/seller_productDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seller_productPrice"
+            android:layout_marginTop="10dp"
+            android:text="Product Description"
             android:textAlignment="center"
             android:textColor="@color/purple"
             android:textSize="14sp" />

@@ -1,7 +1,5 @@
 package com.example.ma_ecommerce.buyer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,7 +20,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.LoginActivity;
 import com.example.ma_ecommerce.R;
-import com.example.ma_ecommerce.prevalid.Prevalid;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +51,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     notsame.setText("Please sure the two space shouldbe the same ");
                     Toast.makeText(ChangePasswordActivity.this, "Please try again  ", Toast.LENGTH_SHORT).show();
                     notsame.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     final RequestQueue queue = Volley.newRequestQueue(ChangePasswordActivity.this);
 
                     String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/updatePassword.php";
@@ -92,5 +90,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ChangePasswordActivity.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

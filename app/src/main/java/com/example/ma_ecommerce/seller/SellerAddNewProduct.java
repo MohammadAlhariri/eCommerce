@@ -53,11 +53,11 @@ public class SellerAddNewProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_add_new_product);
-        add_new_product = (Button) findViewById(R.id.add_new_prouduct_button);
-        p_name = (EditText) findViewById(R.id.product_name);
-        p_description = (EditText) findViewById(R.id.product_description);
-        p_price = (EditText) findViewById(R.id.product_price);
-        p_photo = (ImageView) findViewById(R.id.select_product_image);
+        add_new_product = findViewById(R.id.add_new_prouduct_button);
+        p_name = findViewById(R.id.product_name);
+        p_description = findViewById(R.id.product_description);
+        p_price = findViewById(R.id.product_price);
+        p_photo = findViewById(R.id.select_product_image);
         progressDialog = new ProgressDialog(this);
         p_photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +81,11 @@ public class SellerAddNewProduct extends AppCompatActivity {
         name = p_name.getText().toString();
         price = p_price.getText().toString();
         if (imageuri == null) {
-          Toast.makeText(this, "please Enter the image of this product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "please Enter the image of this product", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(description) || TextUtils.isEmpty(name) || TextUtils.isEmpty(price)) {
-          Toast.makeText(this, "please fill all mandatory fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "please fill all mandatory fields", Toast.LENGTH_SHORT).show();
         } else {
-        storeProduct();
+            storeProduct();
         }
     }
 
@@ -122,8 +122,6 @@ public class SellerAddNewProduct extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         //---------------------------------------------
-
-
 
 
         final RequestQueue queue = Volley.newRequestQueue(this);
@@ -182,7 +180,8 @@ public class SellerAddNewProduct extends AppCompatActivity {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, gallery_photo);
     }
-//
+
+    //
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -201,18 +200,18 @@ public class SellerAddNewProduct extends AppCompatActivity {
 //            }
 //        }
 //    }
-protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode==gallery_photo  &&  resultCode==RESULT_OK  &&  data!=null){
-        imageuri = data.getData();
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
-        } catch (IOException e) {
-            e.printStackTrace();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == gallery_photo && resultCode == RESULT_OK && data != null) {
+            imageuri = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            p_photo.setImageURI(imageuri);
         }
-        p_photo.setImageURI(imageuri);
     }
-}
 }
 
 

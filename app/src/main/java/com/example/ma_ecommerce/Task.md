@@ -1,39 +1,39 @@
 TODO list
 
-General Design:
-    - Prime Color
+- General Design:
+    - Prime Color  
     - Dark Prime Color
     - App_logo
     - Add Icon
 
-Seller:
+- Seller
+    - Seller LoginActivity:
+    - Modify Toast. 
+       
     - Seller AddProduct:
-        - change to RelativeLayout
-        - corp for imageview in add product
+        - change to RelativeLayout MISSED
+        - corp for imageview in add product DONE
 
     - Seller HomeActivity:
         - CardView
-            - redesign for CardView.
-            - corp for Imageview.
-            - Price change Equal sign.
-
-    - Seller LoginActivity:
-        Modify Toast.
+            - redesign for CardView. DONE
+            - corp for Imageview. DONE
+            - Price change Equal sign. DONE
 
     - Seller LogoutActivity:
-        Add Toast When User Logout.
+        Add Toast When User Logout. DONE.
 
     - In Database Seller:
-        - Make phone number and Email unique key.
+        - Make phone number and Email unique key. DONE
 
 
 User:
 
     - User Registration activity :
-        - Modify Toast. Login, cartActivity "Remove Error",
-        - Delete comment from the API.
-        + when press back forward activity to HomeActivity.
-        - Add Toast For Wrong Username or Password
+        - Modify Toast. Login, cartActivity "Remove Error", DONE
+        - Add Toast For Wrong Username or Password  DONE.
+        + when press back forward activity to HomeActivity. DONE.   
+        - Delete comment from the API. inprogress.
 
    - HomeActivity:
         - reload HomeActivity every X time.

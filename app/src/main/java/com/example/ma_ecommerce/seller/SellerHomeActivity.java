@@ -53,18 +53,13 @@ public class SellerHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_home);
-        //----------
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         Paper.init(this);
         recyclerView = (RecyclerView) findViewById(R.id.seller_home_recycler);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//
-//        name = findViewById(R.id.maintain_product_mame);
-//        price = findViewById(R.id.maintain_product_price);
-//        description = findViewById(R.id.maintain_product_description);
-//        imageView = findViewById(R.id.maintain_product_image);
-        //------------------
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_add, R.id.navigation_logout)
                 .build();
@@ -80,6 +75,7 @@ public class SellerHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Paper.book().destroy();
                 Intent intent = new Intent(SellerHomeActivity.this, MainActivity.class);
+                Toast.makeText(SellerHomeActivity.this, "Bye Bye...", Toast.LENGTH_SHORT).show();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
