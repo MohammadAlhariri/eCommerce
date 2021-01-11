@@ -55,7 +55,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
-                intent.putExtra("total", totalOver + "");
+                intent.putExtra("Total: ", totalOver + "");
                 startActivity(intent);
                 finish();
             }
@@ -83,7 +83,9 @@ public class CartActivity extends AppCompatActivity {
                     orderState = row.getString("orderState");
                     userApproved = row.getString("adminApproved");
                 } catch (Exception ex) {
-                    Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    nextProcessButton.setVisibility(View.GONE);
+                    Toast.makeText(CartActivity.this, "Your Cart is empty..", Toast.LENGTH_SHORT).show();
+
                 }
                 if (userApproved.equals("Yes")) {
                     getProductsOfOrder(orderId + "");
@@ -131,6 +133,7 @@ public class CartActivity extends AppCompatActivity {
 
                 for (int i = 0; i < response.length(); i++) {
                     try {
+
                         JSONObject row = response.getJSONObject(i);
                         int productID = row.getInt("productID");
                         int quantity = row.getInt("quantity");
@@ -138,10 +141,10 @@ public class CartActivity extends AppCompatActivity {
                         double price = row.getDouble("productPrice");
                         String productDescription = row.getString("productDescription");
                         String productImage = row.getString("productImage");
-
                         products.add(new Products(poductName, price, productID, quantity, productDescription, productImage));
+
                     } catch (Exception ex) {
-                        Toast.makeText(CartActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CartActivity.this, "error..", Toast.LENGTH_SHORT).show();
 
                     }
 

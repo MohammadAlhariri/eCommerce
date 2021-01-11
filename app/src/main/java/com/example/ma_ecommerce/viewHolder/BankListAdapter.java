@@ -2,7 +2,6 @@ package com.example.ma_ecommerce.viewHolder;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +23,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.model.Products;
-import com.example.ma_ecommerce.prevalid.Prevalid;
-import com.example.ma_ecommerce.seller.SellerAddNewProduct;
-import com.example.ma_ecommerce.seller.SellerHomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,6 +35,7 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
     FragmentActivity activity;
     View selectBank;
     private ProgressDialog progressDialog;
+
     public BankListAdapter(ArrayList<Products> products, FragmentActivity activity) {
         this.products = products;
         this.activity = activity;
@@ -53,7 +50,7 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
 
     @Override
     public BankListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View bankListLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.seller_item_view, parent,false);
+        View bankListLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.seller_item_view, parent, false);
         BankListViewHolder bankListViewHolder = new BankListViewHolder(bankListLayout);
         return bankListViewHolder;
     }
@@ -63,9 +60,9 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
         //holder.bankName.setText(bankListModels.get(position).getBankName());
 
         holder.sellerproductname.setText(products.get(position).getName());
-        holder.sellerproductdescreption.setText(products.get(position).getDescription());
-        holder.sellerproductprice.setText("Price = " + products.get(position).getPrice() + "$");
-        holder.sellerproductstate.setText(products.get(position).getProductState());
+        holder.sellerproductdescreption.setText("Description: " + products.get(position).getDescription());
+        holder.sellerproductprice.setText("Price: " + products.get(position).getPrice() + "$");
+        holder.sellerproductstate.setText("Product Status: " + products.get(position).getProductState());
         Picasso.get().load(products.get(position).getImage()).into(holder.sellerproductimage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +124,8 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map2 = new HashMap<>();
 
-                map2.put("pid", pid+"");
-;
+                map2.put("pid", pid + "");
+                ;
                 return map2;
             }
         };
@@ -145,9 +142,9 @@ public class BankListAdapter extends RecyclerView.Adapter<BankListAdapter.BankLi
 
 
     public class BankListViewHolder extends RecyclerView.ViewHolder implements ItemClickListener {
-        TextView bankName;
         public TextView sellerproductname, sellerproductdescreption, sellerproductprice, sellerproductstate;
         public ImageView sellerproductimage;
+        TextView bankName;
         private ItemClickListener listener;
 
         public BankListViewHolder(View itemView) {
