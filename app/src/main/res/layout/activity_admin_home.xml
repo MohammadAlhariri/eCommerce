@@ -17,6 +17,15 @@
         android:textColor="@color/purple"
         android:textSize="20sp" />
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/admin_welcome"
+        android:layout_above="@+id/approve_products_btn"
+        app:srcCompat="@drawable/logo" />
+
     <Button
         android:id="@+id/approve_products_btn"
         android:layout_width="match_parent"

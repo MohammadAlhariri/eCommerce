@@ -67,6 +67,14 @@
         android:padding="5dp"
         android:layout_marginTop="30dp"/>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_below="@+id/seller_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/logo" />
+
 
 
 

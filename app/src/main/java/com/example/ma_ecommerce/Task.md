@@ -1,9 +1,9 @@
 TODO list
 
 - General Design:
-    - Prime Color  
-    - Dark Prime Color
-    - App_logo
+    - Prime Color  ->Done
+    - Dark Prime Color ->Done
+    - App_logo  ->Done
     - Add Icon
 
 - Seller

@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/applogo"
+        app:srcCompat="@drawable/logo"
         android:contentDescription="TODO" />
 
     <TextView
@@ -23,11 +23,11 @@
         android:layout_height="93dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="240dp"
         android:layout_marginEnd="88dp"
         android:text="Find Discover , Choose and buy any thing  Online "
         android:textAlignment="center"
-        android:textColor="#E91E63"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="italic" />
 
