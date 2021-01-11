@@ -110,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
             Paper.book().write(Prevalid.userNumber, phone);
             Paper.book().write(Prevalid.pass, password);
             Paper.book().write(Prevalid.parentname, parentname);
-
         }
 
 

@@ -36,15 +36,15 @@ User:
         - Delete comment from the API. inprogress.
 
    - HomeActivity:
-        - reload HomeActivity every X time.
+        + reload HomeActivity every X time.
 
    - ProductDetailsActivity:
-        - corp Imageview
-        - Add TextView as counter for Total Price.
+        - corp Imageview DONE 
+        - Add TextView as counter for Total Price. DONE
 
     - cartActivity:
-        - Remove Order add CharSequence Yes or no.
-        - after Remove order Reload cartActivity.
+        - Remove Order add CharSequence Yes or no. done 
+        - after Remove order Reload cartActivity. done 
         - add putExtra for counter as quantity of product
         - Make Toast "we will ship this order after last order been shipped" if there is unshipped order.
         - after update order we have to remember orderID and add it again in the cart.

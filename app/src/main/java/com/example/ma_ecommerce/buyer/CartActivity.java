@@ -41,8 +41,6 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
         recyclerView = findViewById(R.id.cart_list);
         layoutManager = new LinearLayoutManager(this);
         nextProcessButton = findViewById(R.id.next_process_button);
@@ -62,6 +60,21 @@ public class CartActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkOrderReference();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        checkOrderReference();
+    }
+
 
     private void checkOrderReference() {
 
@@ -90,10 +103,9 @@ public class CartActivity extends AppCompatActivity {
                 if (userApproved.equals("Yes")) {
                     getProductsOfOrder(orderId + "");
                     Log.i("oid", orderId + "");
-                    nextProcessButton.setClickable(false);
                     Toast.makeText(CartActivity.this, "You can purchase more products once you received your first shipped", Toast.LENGTH_SHORT).show();
+                    nextProcessButton.setClickable(false);
                 } else {
-
                     nextProcessButton.setClickable(true);
                     getProductsOfOrder(orderId + "");
                     Toast.makeText(CartActivity.this, "You can purchase more products ", Toast.LENGTH_SHORT).show();
@@ -110,14 +122,6 @@ public class CartActivity extends AppCompatActivity {
         });
 
         queue.add(request);
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        checkOrderReference();
 
     }
 

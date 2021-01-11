@@ -71,7 +71,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         String pdecs=products.get(position).getDescription();
         holder.sellerproductdescreption.setText(pdecs);
         String price=products.get(position).getPrice()+"";
-        holder.sellerproductprice.setText("Price = " + price + "$");
+        holder.sellerproductprice.setText("Price: " + price + "$");
         String pimage=products.get(position).getImage();
         Picasso.get().load(pimage).into(holder.sellerproductimage);
         int pid = products.get(position).getPid();

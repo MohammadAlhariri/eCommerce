@@ -33,7 +33,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private FloatingActionButton addToCart;
     private ImageView productImage;
     private ElegantNumberButton numberButton;
-    private TextView productPrice, productName, productDescription;
+    private TextView productPrice, counterTotalPrice, productName, productDescription;
     private String productID = "";
     private ProgressDialog progressDialog;
     private Button addToCartButton;
@@ -44,7 +44,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         progressDialog = new ProgressDialog(this);
-
+        counterTotalPrice = findViewById(R.id.product_counter_total_price);
         productImage = findViewById(R.id.prouduct_image_details);
         numberButton = findViewById(R.id.number_btn);
         productPrice = findViewById(R.id.prouduct_price_details);
@@ -52,6 +52,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         addToCartButton = findViewById(R.id.add_product_to_cart_btn);
         productDescription = findViewById(R.id.prouduct_description_details);
         addToCartButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -59,7 +60,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+        numberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+            @Override
+            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                double total = newValue * Double.parseDouble(productPrice.getText().toString());
+                counterTotalPrice.setText("Total Price: " + total + " $");
+            }
+        });
     }
+
 
     private void addingToCartList() {
         final RequestQueue queue = Volley.newRequestQueue(this);
@@ -117,4 +127,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Picasso.get().load(pimage).into(productImage);
 
     }
+
+
 }

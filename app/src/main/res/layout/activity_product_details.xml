@@ -10,9 +10,7 @@
         android:id="@+id/prouduct_image_details"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:scaleType="centerCrop"
-
-        />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/prouduct_name_details"
@@ -21,11 +19,13 @@
         android:layout_below="@id/prouduct_image_details"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:padding="10dp"
         android:scaleType="centerCrop"
         android:text="Product Name"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
+
 
         />
 
@@ -36,11 +36,13 @@
         android:layout_below="@id/prouduct_name_details"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:padding="10dp"
         android:scaleType="centerCrop"
         android:text="Product Price"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
+
 
         />
 
@@ -51,11 +53,13 @@
         android:layout_below="@id/prouduct_price_details"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:padding="10dp"
         android:scaleType="centerCrop"
         android:text="Product Description"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
+
 
         />
 
@@ -73,19 +77,19 @@
         app:textSize="16dp">
 
     </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
 
-    <!--    android:id="@+id/add_product_to_cart_btn" android:layout_width="wrap_content"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    android:elevation="6dp"-->
-    <!--    android:backgroundTint="@color/white"-->
-    <!--    android:src="@drawable/nav_cart"-->
-    <!--    android:layout_alignParentRight="true"-->
-    <!--    android:layout_alignParentEnd="true"-->
-    <!--    android:layout_alignParentBottom="true"-->
+    <TextView
+        android:id="@+id/product_counter_total_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/add_product_to_cart_btn"
+        android:layout_below="@id/number_btn"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/counter_total_price"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
-
-    <!--    />-->
     <Button
         android:id="@+id/add_product_to_cart_btn"
         android:layout_width="match_parent"

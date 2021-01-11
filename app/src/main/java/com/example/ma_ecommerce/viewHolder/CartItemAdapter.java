@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ma_ecommerce.MainActivity;
 import com.example.ma_ecommerce.R;
 import com.example.ma_ecommerce.buyer.ProductDetailsActivity;
 import com.example.ma_ecommerce.model.Products;
-import com.example.ma_ecommerce.model.Users;
-import com.example.ma_ecommerce.seller.SellerHomeActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +62,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         cartViewHolder.txtProductName.setText(products.get(position).getName());
         cartViewHolder.txtProductPrice.setText(products.get(position).getPrice() + "");
         cartViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (parent.equals("Users")) {
@@ -83,26 +80,29 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
                             if (which != 0) {
                                 deleteProductfromCart(pid);
+                                products.remove(position);
+                                notifyItemRemoved(position);
                                 progressDialog.dismiss();
 
                             } else {
                                 deleteProductfromCart(pid);
                                 dialog.dismiss();
                                 Intent intent = new Intent(activity, ProductDetailsActivity.class);
-
                                 intent.putExtra("pid", pid + "");
                                 intent.putExtra("name", products.get(position).getName());
                                 intent.putExtra("desc", products.get(position).getDescription());
                                 intent.putExtra("pimage", products.get(position).getImage());
                                 intent.putExtra("price", products.get(position).getPrice() + "");
                                 activity.startActivity(intent);
+
+
                             }
                         }
 
 
                     });
                     builder.show();
-                }else if(parent.equals("Admins")){
+                } else if (parent.equals("Admins")) {
                     CharSequence sequence[] = new CharSequence[]{
                             "Approved",
                             "Decline",
@@ -118,8 +118,8 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
                             if (which == 0) {
                                 approvedProduct(pid);
-                          } else if (which==1){
-                               deleteProduct(pid);
+                            } else if (which == 1) {
+                                deleteProduct(pid);
 
 
                             }
@@ -167,7 +167,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map2 = new HashMap<>();
 
-                map2.put("pid", pid+"");
+                map2.put("pid", pid + "");
                 ;
                 return map2;
             }
@@ -179,45 +179,44 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
 
     private void deleteProduct(int pid) {
 
-            progressDialog.setTitle("removing product  ");
-            progressDialog.setMessage("Please Wait .....");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-            final RequestQueue queue = Volley.newRequestQueue(activity);
+        progressDialog.setTitle("removing product  ");
+        progressDialog.setMessage("Please Wait .....");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        final RequestQueue queue = Volley.newRequestQueue(activity);
 
-            String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteProduct.php";
+        String url = "https://ecommerceliu.000webhostapp.com/eCommerceLIU/deleteProduct.php";
 
 
-            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-                    Log.e("dp", response);
-                    Toast.makeText(activity, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
+                Log.e("dp", response);
+                Toast.makeText(activity, "Product deleted successfully ", Toast.LENGTH_SHORT).show();
 
-                    progressDialog.dismiss();
+                progressDialog.dismiss();
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map2 = new HashMap<>();
 
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> map2 = new HashMap<>();
+                map2.put("pid", pid + "");
+                ;
+                return map2;
+            }
+        };
 
-                    map2.put("pid", pid+"");
-                    ;
-                    return map2;
-                }
-            };
-
-            queue.add(request);
+        queue.add(request);
 
 
     }
@@ -244,14 +243,11 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
                 Log.e("dp", response);
                 //Toast.makeText(activity, "Product deleted from cart successfully ", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-
                 Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show();
 
             }
@@ -269,14 +265,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartIt
         queue.add(request);
     }
 
-    //
-//
-//    @Override
-//    public int getItemCount() {
-//        return products.size();
-//    }
-//
-//
     public class CartItemViewHolder extends RecyclerView.ViewHolder implements ItemClickListener {
         public TextView txtProductName, txtProductPrice, txtProductQuantity;
         private ItemClickListener listener;
